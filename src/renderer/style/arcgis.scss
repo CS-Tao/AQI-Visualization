@@ -1,0 +1,59 @@
+@import './variables.scss';
+
+.esri-ui-manual-container>.esri-component {
+  display: none;
+}
+
+.esri-widget {
+  background-color: $panel-background-color;
+}
+.esri-widget-button {
+  background-color: $panel-background-color;
+  border: 1px solid $btn-border-color !important;
+  color: $btn-text-color;
+  &:hover {
+    background-color: $panel-background-color;
+    border-color: $btn-border-color-active !important;
+    color: $btn-text-color-active;
+    z-index: 100000;
+  }
+}
+.esri-search__form {
+  border: 1px solid $btn-border-color;
+  color: $input-text-color !important;
+  &:hover {
+    border-color: $btn-border-color-active !important;
+  }
+}
+.esri-search__input {
+  color: $input-text-color !important;
+}
+.esri-search__suggestions-menu {
+  background-color: $panel-background-color !important;
+  border: 1px solid $btn-border-color;
+  color: $btn-text-color;
+  &:hover {
+    border-color: $btn-border-color-active;
+  }
+  li {
+    cursor: default;
+    &:hover {
+      background-color: transparent !important;
+      color: $btn-text-color-active;
+    }
+  }
+}
+.esri-basemap-gallery__item {
+  &:hover {
+    background-color: transparent;
+    border: 1px solid $btn-border-color;
+  }
+}
+.esri-basemap-gallery__item--selected {
+  background-color: transparent;
+  border: 1px solid $btn-border-color-active;
+  &:hover {
+    background-color: transparent;
+    border: 1px solid $btn-border-color-active;
+  }
+}

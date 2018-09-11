@@ -1,0 +1,38 @@
+@import './variables.scss';
+@import './flex.scss';
+@import './element-ui.scss';
+@import './arcgis.scss';
+
+body {
+	margin: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  ::-webkit-scrollbar {
+    width: 5px;
+    background-color: mix($panel-border-color, #ccc, 90%);
+    border-radius: 2px;
+    &-thumb {
+      background-color: #ccf;
+      border-radius: 2px;
+    }
+  }
+  ::-webkit-input-placeholder {
+    color: #ccc;
+  }
+  :-moz-placeholder {
+    color: #ccc;
+  }
+  ::-moz-placeholder {
+    color: #ccc;
+  }
+  :-ms-input-placeholder {
+    color: #ccc;
+  }
+}
+input, button, div {
+  outline: 0 none !important;
+  // bblr: expression(this.onFocus=this.blur());
+  outline-style: none;
+}
