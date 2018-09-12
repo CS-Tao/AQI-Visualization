@@ -3630,9 +3630,9 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
 
-esri-loader@GIS-Hacker/esri-loader-2.2.0:
-  version "2.2.0"
-  resolved "https://codeload.github.com/GIS-Hacker/esri-loader-2.2.0/tar.gz/1259b42961c6297dbaec477269ab075d0538b222"
+esri-loader@^2.4.0:
+  version "2.4.0"
+  resolved "http://registry.npm.taobao.org/esri-loader/download/esri-loader-2.4.0.tgz#69c7dba674c18d3a261e022a015b50174fddd597"
 
 estraverse@^1.9.1:
   version "1.9.3"

@@ -1,11 +1,24 @@
 $primary-color: #5283c0;
+$primary-color-light: #5287c4;
 $primary-text-color: rgb(80, 148, 228);
+$primary-text-color-light: #ccc;
 
 $panel-border-color: $primary-color;
 $panel-background-color: rgb(11, 21, 50);
 
 $btn-border-color: #2a4d81;
 $btn-text-color: #2a4d81;
-$btn-border-color-active: #ccc;
-$btn-text-color-active: #ccc;
-$input-text-color: #ccc;
+$btn-border-color-active: $primary-text-color-light;
+$btn-text-color-active: $primary-text-color-light;
+$btn-width: 7.6vw;
+$btn-height: 36/136 * $btn-width;
+$btn-font-size: 0.125 * $btn-width;
+
+$input-text-color: $primary-text-color-light;
+
+$box-shadow-size: 6px;
+
+$switch-bar-height: $btn-height / 1.4;
+$switch-bar-width: $switch-bar-height;
+$switch-width: $switch-bar-width * 2.5;
+$switch-height: $switch-bar-height * 1.1;

@@ -1,3 +1,6 @@
+
+@import url("https://js.arcgis.com/4.6/esri/css/main.css");
+@import url("https://js.arcgis.com/4.6/dijit/themes/claro/claro.css");
 @import './variables.scss';
 
 .esri-ui-manual-container>.esri-component {
@@ -7,6 +10,21 @@
 .esri-widget {
   background-color: $panel-background-color;
 }
+.esri-widget--button {
+  background-color: $panel-background-color;
+  border: 1px solid $btn-border-color !important;
+  color: $btn-text-color;
+  &:hover {
+    background-color: $panel-background-color;
+    border-color: $btn-border-color-active !important;
+    color: $btn-text-color-active;
+  }
+  &:active {
+    background-color: $panel-background-color;
+    border-color: $btn-border-color-active !important;
+    color: $btn-text-color-active;
+  }
+}
 .esri-widget-button {
   background-color: $panel-background-color;
   border: 1px solid $btn-border-color !important;
@@ -15,8 +33,15 @@
     background-color: $panel-background-color;
     border-color: $btn-border-color-active !important;
     color: $btn-text-color-active;
-    z-index: 100000;
   }
+  &:active {
+    background-color: $panel-background-color;
+    border-color: $btn-border-color-active !important;
+    color: $btn-text-color-active;
+  }
+}
+.esri-navigation-toggle__button:before {
+  border-color: transparent $btn-border-color transparent transparent;
 }
 .esri-search__form {
   border: 1px solid $btn-border-color;
@@ -36,7 +61,6 @@
     border-color: $btn-border-color-active;
   }
   li {
-    cursor: default;
     &:hover {
       background-color: transparent !important;
       color: $btn-text-color-active;
