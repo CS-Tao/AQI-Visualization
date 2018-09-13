@@ -24,3 +24,9 @@ Mock.mock(new RegExp(DataQuery.DataQuery.getCalender), 'get', demoApi.getCalende
 
 // Post Calender
 Mock.mock(new RegExp(DataQuery.DataQuery.postCalender), 'post', demoApi.postCalender)
+
+// Get Index3
+Mock.mock(new RegExp(DataQuery.DataQuery.getIndex3), 'get', demoApi.getIndex3)
+
+// Post Index3
+Mock.mock(new RegExp(DataQuery.DataQuery.postIndex3), 'post', demoApi.postIndex3)

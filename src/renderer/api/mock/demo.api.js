@@ -80,5 +80,19 @@ export default {
         ]
       }
     }
+  },
+  // Get Index3
+  getIndex3: config => {
+    console.log('Mock: ' + config.url)
+    return {
+      data: {'aqi': 100, 'so2': 6, '粉尘': 4}
+    }
+  },
+  // Post Index3
+  postIndex3: config => {
+    console.log('Mock: ' + config.url)
+    return {
+      data: {'aqi': 100, 'so2': 6, '粉尘': 4}
+    }
   }
 }

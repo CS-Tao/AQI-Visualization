@@ -7,7 +7,11 @@ let DataQuery = {
     // Get Average
     getCalender: '/getCalender',
     // Post Average
-    postCalender: '/postCalender'
+    postCalender: '/postCalender',
+    // Get Average
+    getIndex3: '/getIndex3',
+    // Post Average
+    postIndex3: '/postIndex3'
   }
 }
 

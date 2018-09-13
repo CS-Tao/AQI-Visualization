@@ -17,19 +17,35 @@ export function postTop10 (date) {
     }
   })
 }
-export function getCalender (city) {
+export function getCalender (city, date) {
   return request({
     url: DataQuery.DataQuery.getCalender,
     method: 'get',
-    params: city
+    params: {city, date}
   })
 }
-export function postCalender (city) {
+export function postCalender (city, date) {
   return request({
     url: DataQuery.DataQuery.postCalender,
     method: 'post',
     data: {
-      city
+      city, date
+    }
+  })
+}
+export function getIndex3 (city, date) {
+  return request({
+    url: DataQuery.DataQuery.getIndex3,
+    method: 'get',
+    params: {city, date}
+  })
+}
+export function postIndex3 (city, date) {
+  return request({
+    url: DataQuery.DataQuery.postIndex3,
+    method: 'post',
+    data: {
+      city, date
     }
   })
 }
