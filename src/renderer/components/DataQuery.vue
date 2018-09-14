@@ -21,14 +21,18 @@ export default {
   },
   methods: {
     queryTop10 () {
+      var datestr = this.value
+      var latlng = []
       if (this.value === '') {
         return
       }
       var myChart = echarts.init(document.getElementById('barchart'))
       getTop10({
+        format: 'json',
         date: this.value
       }).then(response => {
         // alert(JSON.stringify(response.data.data))
+        latlng = response.data['latlng']
         var option = {
           title: {
             text: this.value + '污染情况',
@@ -62,7 +66,7 @@ export default {
           },
           xAxis: {
             type: 'category',
-            data: response.data.data['省份'],
+            data: response.data['省份'],
             axisLine: {
               lineStyle: {
                 color: '#3989E3'
@@ -91,20 +95,20 @@ export default {
             {
               name: 'AQI',
               type: 'bar',
-              data: response.data.data['aqi'],
+              data: response.data['aqi'],
               color: '#5092D6'
             },
             {
               name: 'SO2',
               type: 'bar',
               stack: '广告',
-              data: response.data.data['so2'],
+              data: response.data['so2'],
               color: '#002156'
             },
             {
               name: '粉尘',
               type: 'bar',
-              data: response.data.data['粉尘'],
+              data: response.data['粉尘'],
               color: '#B3BAC6'
             }
           ]
@@ -112,16 +116,19 @@ export default {
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option)
         document.getElementById('average').innerText = JSON.stringify(
-          response.data.data['average']
+          response.data['average']
         )
       })
-      myChart.on('click', function (params) {
+      myChart.on('click', (params) => {
         // 获得了城市名称
+        this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
+        this.$store.dispatch('setMapCenterLng', latlng[params.dataIndex][1])
         // document.getElementById('average').innerText = ''
         var calenderChart = echarts.init(document.getElementById('average'))
         getCalender({
+          format: 'json',
           city: params.name,
-          date: this.value
+          year: datestr.substring(0, 4)
         }).then(response => {
           var calenderOption = {
             title: {
@@ -144,10 +151,11 @@ export default {
               }
             },
             calendar: {
-              height: '20%',
-              top: '35%',
+              width: '96%',
+              height: '50%',
+              top: '45%',
               left: 'center',
-              range: response.data.data['range'],
+              range: [response.data[0][0].substring(0, 4) + '-01-01', response.data[0][0].substring(0, 4) + '-12-31'],
               splitLine: {
                 show: true,
                 lineStyle: {
@@ -156,12 +164,12 @@ export default {
                   type: 'solid'
                 }
               },
-              yearLabel: {
+              /* yearLabel: {
                 // formatter: '{start}  1st',
                 textStyle: {
                   color: '#fff'
                 }
-              },
+              }, */
               itemStyle: {
                 normal: {
                   color: '#323c48',
@@ -175,9 +183,9 @@ export default {
                 name: 'aqi',
                 type: 'scatter',
                 coordinateSystem: 'calendar',
-                data: response.data.data['data'],
+                data: response.data,
                 symbolSize: function (val) {
-                  return val[1] / 10
+                  return val[1] / 2.4
                 },
                 itemStyle: {
                   normal: {
@@ -189,13 +197,13 @@ export default {
                 name: 'Top 10',
                 type: 'effectScatter',
                 coordinateSystem: 'calendar',
-                data: response.data.data['data']
+                data: response.data
                   .sort(function (a, b) {
                     return b[1] - a[1]
                   })
                   .slice(0, 10),
                 symbolSize: function (val) {
-                  return val[1] / 10
+                  return val[1] / 2.4
                 },
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -303,7 +311,7 @@ export default {
                     color: '#fff'
                   }
                 },
-                data: [{ value: response.data.data['aqi'], name: 'AQI' }]
+                data: [{ value: response.data['aqi'], name: 'AQI' }]
               },
               {
                 name: 'SO2',
@@ -386,7 +394,7 @@ export default {
                     color: '#fff'
                   }
                 },
-                data: [{ value: response.data.data['so2'], name: 'SO2' }]
+                data: [{ value: response.data['so2'], name: 'SO2' }]
               },
               {
                 name: '粉尘',
@@ -469,7 +477,7 @@ export default {
                     color: '#fff'
                   }
                 },
-                data: [{ value: response.data.data['粉尘'], name: 'gas' }]
+                data: [{ value: response.data['粉尘'], name: 'gas' }]
               }
             ]
           }
@@ -510,8 +518,9 @@ export default {
     position: relative;
   }
   .average {
+    margin-top: 2vh;
     width: 30vw;
-    height: 25vh;
+    height: 20vh;
     font-family: "DS-Digital";
     font-size: 100px;
     color: #b3bac6;

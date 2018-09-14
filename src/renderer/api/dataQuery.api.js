@@ -8,29 +8,11 @@ export function getTop10 (date) {
     params: date
   })
 }
-export function postTop10 (date) {
-  return request({
-    url: DataQuery.DataQuery.postTop10,
-    method: 'post',
-    data: {
-      date
-    }
-  })
-}
-export function getCalender (city, date) {
+export function getCalender (format, city, year) {
   return request({
     url: DataQuery.DataQuery.getCalender,
     method: 'get',
-    params: {city, date}
-  })
-}
-export function postCalender (city, date) {
-  return request({
-    url: DataQuery.DataQuery.postCalender,
-    method: 'post',
-    data: {
-      city, date
-    }
+    params: {format, city, year}
   })
 }
 export function getIndex3 (city, date) {
@@ -38,14 +20,5 @@ export function getIndex3 (city, date) {
     url: DataQuery.DataQuery.getIndex3,
     method: 'get',
     params: {city, date}
-  })
-}
-export function postIndex3 (city, date) {
-  return request({
-    url: DataQuery.DataQuery.postIndex3,
-    method: 'post',
-    data: {
-      city, date
-    }
   })
 }

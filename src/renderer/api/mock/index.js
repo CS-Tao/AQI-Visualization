@@ -16,17 +16,8 @@ Mock.mock(new RegExp(urls.demo.loadTestRecodsList), 'post', demoApi.postRequest)
 // Get Top10
 Mock.mock(new RegExp(DataQuery.DataQuery.getTop10), 'get', demoApi.getTop10)
 
-// Post Top10
-Mock.mock(new RegExp(DataQuery.DataQuery.postTop10), 'post', demoApi.postTop10)
-
 // Get Calender
 Mock.mock(new RegExp(DataQuery.DataQuery.getCalender), 'get', demoApi.getCalender)
 
-// Post Calender
-Mock.mock(new RegExp(DataQuery.DataQuery.postCalender), 'post', demoApi.postCalender)
-
 // Get Index3
 Mock.mock(new RegExp(DataQuery.DataQuery.getIndex3), 'get', demoApi.getIndex3)
-
-// Post Index3
-Mock.mock(new RegExp(DataQuery.DataQuery.postIndex3), 'post', demoApi.postIndex3)
