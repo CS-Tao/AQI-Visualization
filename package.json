@@ -64,7 +64,7 @@
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.4",
-    "esri-loader": "GIS-Hacker/esri-loader-2.2.0",
+    "esri-loader": "^2.4.0",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",

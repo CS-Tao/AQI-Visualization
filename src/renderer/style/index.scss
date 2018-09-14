@@ -11,27 +11,27 @@ body {
   -ms-user-select: none;
   ::-webkit-scrollbar {
     width: 5px;
-    background-color: mix($panel-border-color, #ccc, 90%);
+    background-color: mix($panel-border-color, $primary-text-color-light, 90%);
     border-radius: 2px;
     &-thumb {
-      background-color: #ccf;
+      background-color: $primary-text-color-light;
       border-radius: 2px;
     }
   }
   ::-webkit-input-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   :-moz-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   ::-moz-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   :-ms-input-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
 }
-input, button, div {
+input, button, div, canvas {
   outline: 0 none !important;
   // bblr: expression(this.onFocus=this.blur());
   outline-style: none;

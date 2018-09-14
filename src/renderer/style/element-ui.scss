@@ -1,4 +1,42 @@
 @import './variables.scss';
 
-// $--font-path: '~element-ui/lib/theme-chalk/fonts';
-// $--color-primary: #409EFF;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--color-primary: $primary-color;
+
+.el-switch {
+  height: 0;
+}
+.el-switch__core {
+  width: $switch-width !important;
+  height: $switch-height;
+  border-radius: 3px;
+  border: $switch-bar-height * 0.05 solid $primary-text-color-light;
+  &::after {
+    border-radius: 3px;
+    width: $switch-bar-width;
+    height: $switch-bar-height;
+    top: 0;
+    left: 0;
+  }
+}
+.el-switch.is-checked .el-switch__core::after {
+  left: 100%;
+  margin-left: -$switch-bar-width;
+}
+.el-switch__label * {
+  font-size: $btn-font-size !important;
+}
+.el-switch__label {
+  color: $primary-text-color;
+  &.is-active {
+    color: $primary-text-color-light;
+  }
+}
+.el-switch__label--right {
+  margin-left: $switch-bar-width / 2;
+}
+.esri-view-surface--inset-outline {
+  &::after {
+    display: none;
+  }
+}
