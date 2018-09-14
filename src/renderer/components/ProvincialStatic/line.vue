@@ -37,27 +37,27 @@ export default {
         {
           name: '武汉',
           type: 'line',
-          data: [120, 132, 101, 134, 90, 230, 210]
+          data: [20, 32, 45, 60, 90, 100, 180]
         },
         {
           name: '宜昌',
           type: 'line',
-          data: [220, 182, 191, 234, 290, 330, 310]
+          data: [20, 30, 40, 55, 88, 96, 150]
         },
         {
           name: '荆州',
           type: 'line',
-          data: [150, 232, 201, 154, 190, 330, 410]
+          data: [15, 23, 33, 50, 85, 100, 160]
         },
         {
           name: '仙桃',
           type: 'line',
-          data: [320, 332, 301, 334, 390, 330, 320]
+          data: [13, 22, 35, 51, 70, 103, 170]
         },
         {
           name: '十堰',
           type: 'line',
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
+          data: [10, 27, 30, 52, 60, 102, 166]
         }
       ]
     }
@@ -117,9 +117,15 @@ export default {
         series: this.sseries
       }
       this.chart.setOption(option)
-      this.chart.on('click'/* 'mouseover' */, function (params) {
+      this.chart.on('mouseover', (params) => {
         // 控制台打印数据的名称
-        alert(params.dataIndex)
+        let avery = 0
+        for (let i = 0; i < this.sseries.length; i++) {
+          avery += this.sseries[i].data[params.dataIndex]
+        }
+        avery = avery / this.sseries.length
+        this.$emit('sendavery', avery)
+        return avery
       })
     }
   },
