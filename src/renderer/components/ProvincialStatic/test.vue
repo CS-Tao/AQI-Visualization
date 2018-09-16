@@ -7,8 +7,9 @@
 
 <script>
 import echarts from 'echarts'
-
+import resize from '@/components/Utils/ChartResize'
 export default {
+  mixins: [resize],
   props: {
     className: {
       type: String,
@@ -21,11 +22,11 @@ export default {
     },
     width: {
       type: String,
-      default: '250px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '250px'
+      default: '100%'
     },
     num: {
       type: Number,
@@ -142,9 +143,6 @@ export default {
   },
 
   watch: {
-    data (newData, oldData) {
-      this.initChart()
-    },
     num (newData, oldData) {
       this.initChart()
     }

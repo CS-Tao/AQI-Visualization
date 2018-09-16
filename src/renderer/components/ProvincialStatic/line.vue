@@ -7,8 +7,9 @@
 
 <script>
 import echarts from 'echarts'
-
+import resize from '@/components/Utils/ChartResize'
 export default {
+  mixins: [resize],
   props: {
     className: {
       type: String,
@@ -21,11 +22,11 @@ export default {
     },
     width: {
       type: String,
-      default: '700px'
+      default: '100%'
     },
     height: {
       type: String,
-      default: '300px'
+      default: '100%'
     },
     xaxis: {
       type: Array,
@@ -87,13 +88,19 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
       var option = {
         title: {
-          text: '主要城市污染'
+          text: '主要城市污染',
+          textStyle: {
+            color: '#bbf'
+          }
         },
         tooltip: {
           trigger: 'axis'
         },
         legend: {
-          data: this.sseries.name
+          data: this.sseries.name,
+          textStyle: {
+            color: '#bbf'
+          }
         },
         grid: {
           left: '3%',
@@ -109,10 +116,22 @@ export default {
         xAxis: {
           ype: 'category',
           boundaryGap: true,
-          data: this.xaxis
+          data: this.xaxis,
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#bbf'
+            }
+          }
         },
         yAxis: {
-          type: 'value'
+          type: 'value',
+          axisLabel: {
+            show: true,
+            textStyle: {
+              color: '#bbf'
+            }
+          }
         },
         series: this.sseries
       }
@@ -131,9 +150,6 @@ export default {
   },
 
   watch: {
-    data (newData, oldData) {
-      this.initChart()
-    },
     num (newData, oldData) {
       this.initChart()
     }
