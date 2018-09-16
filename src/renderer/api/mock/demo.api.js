@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+import adminJson from '@/assets/mapdata/adminDiv'
 
 export default {
   // Get demo
@@ -7,6 +8,10 @@ export default {
     return {
       time: Mock.mock('@datetime')
     }
+  },
+  getJsonURL: config => {
+    console.log('Mock: ' + config.url)
+    return adminJson
   },
   // Post demo
   postRequest: config => {
