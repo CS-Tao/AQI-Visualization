@@ -75,6 +75,9 @@ export default {
             max: 220,
             splitNumber: 11,
             radius: '95%',
+            textStyle: {
+              fontSize: this.height / 30
+            },
             axisLine: { // 坐标轴线
               lineStyle: { // 属性lineStyle控制线条样式
                 color: [[0.09, 'lime'], [0.82, '#1e90ff'], [1, '#ff4500']],
@@ -131,11 +134,12 @@ export default {
               offsetCenter: [0, '50%'], // x, y，单位px
               textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
-                color: '#fff'
+                color: '#fff',
+                fontSize: this.height / 30
               }
             },
             // detail: {formatter: '{value}%'},
-            data: [{value: this.num, name: '污染'}]
+            data: [{value: this.num, name: '平均污染'}]
           }
         ]
       })
