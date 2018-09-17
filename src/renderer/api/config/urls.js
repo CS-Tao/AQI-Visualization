@@ -10,6 +10,10 @@ let urls = {
     getProvinceName: '/getprovincesnames',
     // Get AQL data for all cities in a province
     getProvinceData: '/getprovincesdata'
+  },
+  mapview3d: {
+    // 获取某一天全国的数据
+    getAllDataInDay: '/getdailynationaldata'
   }
 }
 
