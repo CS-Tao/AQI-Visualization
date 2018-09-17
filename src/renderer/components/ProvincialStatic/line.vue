@@ -37,27 +37,22 @@ export default {
       default: [
         {
           name: '武汉',
-          type: 'line',
           data: [60, 90, 100, 180]
         },
         {
           name: '宜昌',
-          type: 'line',
           data: [55, 88, 96, 150]
         },
         {
           name: '荆州',
-          type: 'line',
           data: [50, 85, 100, 160]
         },
         {
           name: '仙桃',
-          type: 'line',
           data: [51, 70, 103, 170]
         },
         {
           name: '十堰',
-          type: 'line',
           data: [52, 60, 102, 166]
         }
       ]
@@ -84,7 +79,16 @@ export default {
   },
 
   methods: {
+    datafix () {
+      for (let i = 0; i < this.sseries.length; i++) {
+        if (this.sseries[i].data.length > 0) {
+          var m = {name: this.sseries[i].name, type: 'line', data: this.sseries[i].data}
+          this.temp.push(m)
+        }
+      }
+    },
     initChart () {
+      this.datafix()
       this.chart = echarts.init(document.getElementById(this.id))
       var option = {
         title: {
@@ -133,7 +137,7 @@ export default {
             }
           }
         },
-        series: this.sseries
+        series: this.temp
       }
       this.chart.setOption(option)
       this.chart.on('mouseover', (params) => {
