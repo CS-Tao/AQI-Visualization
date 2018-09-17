@@ -2,9 +2,14 @@ let urls = {
   demo: {
     // Get demo
     getRequest: '/getDemoUrl',
-    getProvinceName: 'https://aqi.cs-tao.cc/getcitiesinfo/?format=json',
     // Post demo
     postRequest: '/postDemoUrl'
+  },
+  province: {
+    // Get the names of all provinces in the country
+    getProvinceName: '/getprovincesnames',
+    // Get AQL data for all cities in a province
+    getProvinceData: '/getprovincesdata'
   }
 }
 

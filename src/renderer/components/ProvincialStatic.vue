@@ -1,36 +1,54 @@
 <template>
   <!-- <json-map class="container" :json-data="jsonData"/> -->
   <div class="panel">
-   <el-select v-model="selectValue" clearable filterable placeholder="请选择">
-    <el-option
-      v-for="item in options"
-      :key="item.id"
-      :label="item.cityname"
-      :value="item.cityname">
-    </el-option>
-  </el-select>
-  <span>SelectValue: {{ selectValue }}</span>
+    <el-select v-model="selectId" clearable filterable @change="getProvinceData()" placeholder="请选择">
+      <el-option
+        v-for="item in provinceNames"
+        :key="item.id"
+        :label="item.name"
+        :value="item.name">
+      </el-option>
+    </el-select>
+    <transition name="bounce">
+      <div class="container">
+        <table border="0">
+          <tr>
+            <td id = "charttainer">
+              <dashbord v-bind:num="message"></dashbord>
+            </td>
+            <td id = "lincontainer">
+              <lines v-on:sendavery="getavery"> </lines>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import demoApi from '@/api/demo.api'
-import provinceNameApi from '@/api/provinceName.api'
+import provinceApi from '@/api/province.api'
 import Map from '@/components/ProvincialStatic/JSONMap'
+// import dashbord from '@/components/ProvincialStatic/Dashbord'
+// import lines from '@/components/ProvincialStatic/Line'
 
 export default {
   data () {
     return {
       jsonData: null,
-      selectValue: '',
-      options: []
+      selectId: '',
+      provinceNames: [],
+      ProvinceData: []
     }
   },
   components: {
     'json-map': Map
+    // dashbord: dashbord,
+    // lines: lines
   },
   mounted () {
-    this.getjsonData()
+    this.getProvinceName()
   },
   methods: {
     getjsonData () {
@@ -39,9 +57,21 @@ export default {
       }).catch(() => {})
     },
     getProvinceName () {
-      provinceNameApi.getProvinceName().then((response) => {
-        this.options = response.data
+      provinceApi.getProvinceName().then((response) => {
+        if (response.status === 200) {
+          this.provinceNames = response.data
+        }
       }).catch(() => {})
+    },
+    getProvinceData () {
+      provinceApi.getProvinceData(this.selectId).then((response) => {
+        if (response.status === 200) {
+          this.ProvinceData = response.data
+        }
+      }).catch(() => {})
+    },
+    getavery: function (msg) {
+      this.message = msg
     }
   }
 }
@@ -61,8 +91,8 @@ export default {
 }
 .panel{
   position: fixed;
-  bottom: 80vh;
-  left: 1vw;
+  bottom: 83vh;
+  left: 5vw;
   width: 18vw;
   height: 4vh;
   background-color: $panel-background-color;
