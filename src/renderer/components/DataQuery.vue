@@ -21,18 +21,18 @@ export default {
   },
   methods: {
     queryTop10 () {
-      var datestr = this.value
       var latlng = []
+      var cityid = []
       if (this.value === '') {
         return
       }
       var myChart = echarts.init(document.getElementById('barchart'))
-      getTop10({
-        format: 'json',
-        date: this.value
-      }).then(response => {
+      getTop10(
+        'json', this.value
+      ).then(response => {
         // alert(JSON.stringify(response.data.data))
         latlng = response.data['latlng']
+        cityid = response.data['cityId']
         var option = {
           title: {
             text: this.value + '污染情况',
@@ -66,7 +66,7 @@ export default {
           },
           xAxis: {
             type: 'category',
-            data: response.data['省份'],
+            data: response.data['city'],
             axisLine: {
               lineStyle: {
                 color: '#3989E3'
@@ -102,13 +102,13 @@ export default {
               name: 'SO2',
               type: 'bar',
               stack: '广告',
-              data: response.data['so2'],
+              data: response.data['pm25'],
               color: '#002156'
             },
             {
               name: '粉尘',
               type: 'bar',
-              data: response.data['粉尘'],
+              data: response.data['so2'],
               color: '#B3BAC6'
             }
           ]
@@ -123,13 +123,15 @@ export default {
         // 获得了城市名称
         this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
         this.$store.dispatch('setMapCenterLng', latlng[params.dataIndex][1])
+        var city = cityid[params.dataIndex].toString()
+        var year = this.value.substring(0, 4)
         // document.getElementById('average').innerText = ''
         var calenderChart = echarts.init(document.getElementById('average'))
-        getCalender({
-          format: 'json',
-          city: params.name,
-          year: datestr.substring(0, 4)
-        }).then(response => {
+        getCalender(
+          'json',
+          city,
+          year
+        ).then(response => {
           var calenderOption = {
             title: {
               // top: 30,
@@ -185,7 +187,7 @@ export default {
                 coordinateSystem: 'calendar',
                 data: response.data,
                 symbolSize: function (val) {
-                  return val[1] / 2.4
+                  return val[1] / 50
                 },
                 itemStyle: {
                   normal: {
@@ -203,7 +205,7 @@ export default {
                   })
                   .slice(0, 10),
                 symbolSize: function (val) {
-                  return val[1] / 2.4
+                  return val[1] / 50
                 },
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -223,10 +225,11 @@ export default {
           }
           calenderChart.setOption(calenderOption)
         })
-        getIndex3({
-          city: params.name,
-          date: this.value
-        }).then(response => {
+        getIndex3(
+          'json',
+          city,
+          year
+        ).then(response => {
           var motoChart = echarts.init(document.getElementById('moto'))
           var motoOption = {
             // backgroundColor: '#1b1b1b',
@@ -311,7 +314,7 @@ export default {
                     color: '#fff'
                   }
                 },
-                data: [{ value: response.data['aqi'], name: 'AQI' }]
+                data: [{ value: parseInt(response.data['aqi']), name: 'AQI' }]
               },
               {
                 name: 'SO2',
@@ -319,9 +322,9 @@ export default {
                 center: ['18%', '55%'], // 默认全局居中
                 radius: '50%',
                 min: 0,
-                max: 10,
+                max: 100,
                 endAngle: 45,
-                splitNumber: 10,
+                splitNumber: 4,
                 axisLine: {
                   // 坐标轴线
                   lineStyle: {
@@ -394,7 +397,7 @@ export default {
                     color: '#fff'
                   }
                 },
-                data: [{ value: response.data['so2'], name: 'SO2' }]
+                data: [{ value: parseInt(response.data['pm25']), name: 'PM2.5' }]
               },
               {
                 name: '粉尘',
@@ -402,10 +405,10 @@ export default {
                 center: ['82%', '55%'], // 默认全局居中
                 radius: '50%',
                 min: 0,
-                max: 10,
+                max: 100,
                 startAngle: 135,
                 // endAngle:45,
-                splitNumber: 10,
+                splitNumber: 4,
                 axisLine: {
                   // 坐标轴线
                   lineStyle: {
@@ -438,9 +441,9 @@ export default {
                     switch (v + '') {
                       case '0':
                         return 'Low'
-                      case '5':
+                      case '50':
                         return 'Mid'
-                      case '10':
+                      case '100':
                         return 'High'
                     }
                   }
@@ -464,6 +467,7 @@ export default {
                 title: {
                   show: false
                 },
+                /*
                 detail: {
                   borderColor: '#fff',
                   shadowColor: '#fff', // 默认透明
@@ -476,8 +480,8 @@ export default {
                     fontWeight: 'bolder',
                     color: '#fff'
                   }
-                },
-                data: [{ value: response.data['粉尘'], name: 'gas' }]
+                }, */
+                data: [{ value: parseInt(response.data['so2']), name: 'SO2' }]
               }
             ]
           }

@@ -1,11 +1,11 @@
 let DataQuery = {
   DataQuery: {
     // Get demo
-    getTop10: '/getTop10',
+    getTop10: '/gettop10city',
     // Get Average
-    getCalender: '/getyearaqidata/',
+    getCalender: '/getyearaqidata',
     // Get Average
-    getIndex3: '/getIndex3'
+    getIndex3: '/get3avgindexofcity'
   }
 }
 

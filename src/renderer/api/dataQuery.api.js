@@ -1,11 +1,11 @@
 import request from './config/service'
 import DataQuery from './config/DataQuery'
 
-export function getTop10 (date) {
+export function getTop10 (format, date) {
   return request({
     url: DataQuery.DataQuery.getTop10,
     method: 'get',
-    params: date
+    params: {format, date}
   })
 }
 export function getCalender (format, city, year) {
@@ -15,10 +15,10 @@ export function getCalender (format, city, year) {
     params: {format, city, year}
   })
 }
-export function getIndex3 (city, date) {
+export function getIndex3 (format, city, year) {
   return request({
     url: DataQuery.DataQuery.getIndex3,
     method: 'get',
-    params: {city, date}
+    params: {format, city, year}
   })
 }
