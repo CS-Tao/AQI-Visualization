@@ -13,7 +13,9 @@
 <script>
 import echarts from 'echarts'
 import { getTop10, getCalender, getIndex3 } from '@/api/dataQuery.api'
+import resize from '@/components/Utils/ChartResize'
 export default {
+  mixins: [resize],
   data () {
     return {
       value: ''
@@ -52,7 +54,7 @@ export default {
             }
           },
           legend: {
-            data: ['AQI', 'SO2', '粉尘'],
+            data: ['AQI', 'PM2.5', 'SO2'],
             y: '15%',
             textStyle: {
               color: '#3989E3'
@@ -99,14 +101,14 @@ export default {
               color: '#5092D6'
             },
             {
-              name: 'SO2',
+              name: 'PM2.5',
               type: 'bar',
               stack: '广告',
-              data: response.data['pm25'],
+              data: response.data['pm2.5'],
               color: '#002156'
             },
             {
-              name: '粉尘',
+              name: 'SO2',
               type: 'bar',
               data: response.data['so2'],
               color: '#B3BAC6'
@@ -187,7 +189,7 @@ export default {
                 coordinateSystem: 'calendar',
                 data: response.data,
                 symbolSize: function (val) {
-                  return val[1] / 50
+                  return val[1] / 40
                 },
                 itemStyle: {
                   normal: {
@@ -205,7 +207,7 @@ export default {
                   })
                   .slice(0, 10),
                 symbolSize: function (val) {
-                  return val[1] / 50
+                  return val[1] / 40
                 },
                 showEffectOn: 'render',
                 rippleEffect: {
@@ -343,6 +345,14 @@ export default {
                     color: '#fff',
                     shadowColor: '#fff', // 默认透明
                     shadowBlur: 3
+                  },
+                  formatter: function (v) {
+                    switch (v + '') {
+                      case '0':
+                        return ''
+                      case '100':
+                        return ''
+                    }
                   }
                 },
                 axisTick: {
@@ -440,11 +450,9 @@ export default {
                   formatter: function (v) {
                     switch (v + '') {
                       case '0':
-                        return 'Low'
-                      case '50':
-                        return 'Mid'
+                        return ''
                       case '100':
-                        return 'High'
+                        return ''
                     }
                   }
                 },
@@ -465,9 +473,16 @@ export default {
                   shadowBlur: 2
                 },
                 title: {
-                  show: false
+                  offsetCenter: [0, '-30%'], // x, y，单位px
+                  textStyle: {
+                    // 其余属性默认使用全局文本样式，详见TEXTSTYLE
+                    fontWeight: 'bolder',
+                    fontStyle: 'italic',
+                    color: '#fff',
+                    shadowColor: '#fff', // 默认透明
+                    shadowBlur: 2
+                  }
                 },
-                /*
                 detail: {
                   borderColor: '#fff',
                   shadowColor: '#fff', // 默认透明
@@ -480,7 +495,7 @@ export default {
                     fontWeight: 'bolder',
                     color: '#fff'
                   }
-                }, */
+                },
                 data: [{ value: parseInt(response.data['so2']), name: 'SO2' }]
               }
             ]
