@@ -6,7 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import App from './App'
 import router from './router'
 import store from './store'
-import './api/mock'
+// import './api/mock'
 import './style/index.scss'
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))

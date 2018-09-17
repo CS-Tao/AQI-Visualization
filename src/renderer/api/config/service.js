@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Message } from 'element-ui'
 
 const service = axios.create({
-  baseURL: 'http://aqi.cs-tao.cc',
+  baseURL: 'https://aqi.cs-tao.cc',
   timeout: 5000,
   withCredentials: true
 })
