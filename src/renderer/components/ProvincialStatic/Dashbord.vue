@@ -139,7 +139,7 @@ export default {
               }
             },
             // detail: {formatter: '{value}%'},
-            data: [{value: this.num, name: '平均污染'}]
+            data: [{value: this.num.toFixed(2), name: '平均污染'}]
           }
         ]
       })
