@@ -6,7 +6,7 @@
         v-for="item in provinceNames"
         :key="item.id"
         :label="item.name"
-        :value="item.name">
+        :value="item.id">
       </el-option>
     </el-select>
     <transition name="bounce">
@@ -30,8 +30,8 @@
 import demoApi from '@/api/demo.api'
 import provinceApi from '@/api/province.api'
 import Map from '@/components/ProvincialStatic/JSONMap'
-// import dashbord from '@/components/ProvincialStatic/Dashbord'
-// import lines from '@/components/ProvincialStatic/Line'
+import dashbord from '@/components/ProvincialStatic/Dashbord'
+import lines from '@/components/ProvincialStatic/Line'
 
 export default {
   data () {
@@ -39,13 +39,14 @@ export default {
       jsonData: null,
       selectId: '',
       provinceNames: [],
-      ProvinceData: []
+      ProvinceData: [],
+      message: 0
     }
   },
   components: {
-    'json-map': Map
-    // dashbord: dashbord,
-    // lines: lines
+    'json-map': Map,
+    dashbord,
+    lines
   },
   mounted () {
     this.getProvinceName()

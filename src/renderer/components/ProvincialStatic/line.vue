@@ -1,7 +1,7 @@
  <template>
   <div :class="className"
    :id="id" 
-   :style="{height:height,width:width}" :num="num">
+   :style="{height:height,width:width}">
   </div>
 </template>
 
@@ -30,32 +30,36 @@ export default {
     },
     xaxis: {
       type: Array,
-      default: ['2015', '2016', '2017', '2018']
+      default: function () {
+        return ['2015', '2016', '2017', '2018']
+      }
     },
     sseries: {
       type: Array,
-      default: [
-        {
-          name: '武汉',
-          data: [60, 90, 100, 180]
-        },
-        {
-          name: '宜昌',
-          data: [55, 88, 96, 150]
-        },
-        {
-          name: '荆州',
-          data: [50, 85, 100, 160]
-        },
-        {
-          name: '仙桃',
-          data: [51, 70, 103, 170]
-        },
-        {
-          name: '十堰',
-          data: [52, 60, 102, 166]
-        }
-      ]
+      default: function () {
+        return [
+          {
+            name: '武汉',
+            data: [60, 90, 100, 180]
+          },
+          {
+            name: '宜昌',
+            data: [55, 88, 96, 150]
+          },
+          {
+            name: '荆州',
+            data: [50, 85, 100, 160]
+          },
+          {
+            name: '仙桃',
+            data: [51, 70, 103, 170]
+          },
+          {
+            name: '十堰',
+            data: [52, 60, 102, 166]
+          }
+        ]
+      }
     }
   },
 
@@ -150,12 +154,6 @@ export default {
         this.$emit('sendavery', avery)
         return avery
       })
-    }
-  },
-
-  watch: {
-    num (newData, oldData) {
-      this.initChart()
     }
   }
 }
