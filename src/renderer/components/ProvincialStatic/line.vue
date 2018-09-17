@@ -81,7 +81,7 @@ export default {
   methods: {
     datafix () {
       for (let i = 0; i < this.sseries.length; i++) {
-        if (this.sseries[i].data.length > 0) {
+        if (this.sseries[i].data.length !== this.xaxis.length) {
           var m = {name: this.sseries[i].name, type: 'line', data: this.sseries[i].data}
           this.temp.push(m)
         }
