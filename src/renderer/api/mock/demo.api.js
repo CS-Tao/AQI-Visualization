@@ -2,14 +2,14 @@ import Mock from 'mockjs'
 
 export default {
   // Get demo
-  getDemo: config => {
+  getRequest: config => {
     console.log('Mock: ' + config.url)
     return {
       time: Mock.mock('@datetime')
     }
   },
   // Post demo
-  postDemo: config => {
+  postRequest: config => {
     console.log('Mock: ' + config.url)
     return {
       time: Mock.mock('@datetime')

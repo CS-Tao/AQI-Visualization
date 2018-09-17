@@ -9,7 +9,7 @@ Mock.setup({
 })
 
 // Get demo
-Mock.mock(new RegExp(urls.demo.getRequest), 'get', demoApi.getRequest)
+Mock.mock(new RegExp(urls.demo.getRequest), 'get', demoApi.getJsonURL)
 
 // Post demo
 Mock.mock(new RegExp(urls.demo.loadTestRecodsList), 'post', demoApi.postRequest)
