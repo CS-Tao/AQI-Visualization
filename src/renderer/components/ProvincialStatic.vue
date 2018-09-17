@@ -17,7 +17,7 @@
               <dashbord v-bind:num="message"></dashbord>
             </td>
             <td id = "lincontainer">
-              <lines v-on:sendavery="getavery"> </lines>
+              <lines v-on:sendavery="getavery" :xaxis="ProvinceData.xaxis" :sseries="ProvinceData.sseries"> </lines>
             </td>
           </tr>
         </table>
@@ -37,6 +37,7 @@ export default {
   data () {
     return {
       jsonData: null,
+      message: 0,
       selectId: '',
       provinceNames: [],
       ProvinceData: [],
