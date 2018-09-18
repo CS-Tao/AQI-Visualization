@@ -8,7 +8,6 @@
           <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'provincial-static'}" @click="btnClicked('provincial-static')">省份统计</button>
         </div>
         <div class="nav-btn-right-group">
-          <!-- <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'map-view-3d'}" @click="btnClicked('map-view-3d')">立体展示</button> -->
           <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-dist'}" @click="btnClicked('data-dist')">污染分布</button>
           <el-switch
            class="switch-3d"
@@ -27,7 +26,6 @@
       <router-view></router-view>
     </div>
     <div class="footer-container">
-      <!-- <el-date-picker v-model="dateStr" value-format="yyyy-MM-dd" @change="setSelectedDateForMap()" class="date-picker"/> -->
       <div @click="preBtnClicked()">
         <svg-icon :icon-class="'pre'" class="pre-btn"/>
       </div>
@@ -43,8 +41,7 @@
         class="slider"
         @change="sliderValueChanged()">
       </el-slider>
-      <!-- <led-date-display :date="date" class="led-date"/> -->
-      <div class="primary-panel right-in new-led-date">{{dateStr}}</div>
+      <div class="primary-panel right-in led-date">{{dateStrForShow}}</div>
     </div>
   </el-container>
 </template>
@@ -53,15 +50,15 @@
 import { mapGetters } from 'vuex'
 import Map from '@/components/Main/Map'
 import Scene from '@/components/Main/Scene'
+
 const startDate = '2014-01-01'
 
 export default {
   data () {
     return {
       showIn3d: false,
-      date: new Date(startDate),
-      dateStr: startDate,
       sliderValue: 0,
+      sliderValueDelay: 0,
       pause: false,
       autoPlayTimerHandler: null
     }
@@ -73,11 +70,15 @@ export default {
   computed: {
     ...mapGetters([
       'maskMainView'
-    ])
-  },
-  watch: {
+    ]),
     date () {
-      this.dateChanged()
+      return new Date(new Date(startDate).getTime() + this.sliderValueDelay * 24 * 60 * 60 * 1000)
+    },
+    dateStr () {
+      return this.formatDate(this.date)
+    },
+    dateStrForShow () {
+      return this.formatDate(new Date(new Date(startDate).getTime() + this.sliderValue * 24 * 60 * 60 * 1000))
     }
   },
   methods: {
@@ -92,10 +93,6 @@ export default {
         })
         this.showIn3d = false
       }
-    },
-    setSelectedDateForMap () {
-      this.date = new Date(this.dateStr)
-      this.$store.dispatch('setSelectedDate', this.dateStr)
     },
     pauseBtnClicked () {
       if (this.pause) {
@@ -118,21 +115,19 @@ export default {
       this.date = new Date(this.date.getTime() + 24 * 60 * 60 * 1000)
     },
     sliderValueChanged () {
-      this.date = new Date(new Date(startDate).getTime() + this.sliderValue * 24 * 60 * 60 * 1000)
+      this.sliderValueDelay = this.sliderValue
+      this.$store.dispatch('setSelectedDate', this.dateStr)
     },
-    dateChanged () {
-      var yearStr = this.date.getFullYear()
-      var monthStr = this.date.getMonth() + 1
-      var dayStr = this.date.getDate()
+    formatDate (date) {
+      var yearStr = date.getFullYear()
+      var monthStr = date.getMonth() + 1
+      var dayStr = date.getDate()
       var dateStr = yearStr
       if (monthStr < 10) dateStr += '-0' + monthStr
       else dateStr += '-' + monthStr
       if (dayStr < 10) dateStr += '-0' + dayStr
       else dateStr += '-' + dayStr
-      this.dateStr = dateStr
-      this.sliderValue = (this.date.getTime() - new Date(startDate).getTime()) / (24 * 60 * 60 * 1000)
-      this.$store.dispatch('setSelectedDate', this.dateStr)
-      // this.setSelectedDateForMap()
+      return dateStr
     }
   }
 }
@@ -170,7 +165,6 @@ $nav-top: 2.7vw;
     width: 100vw;
     height: 10vh;
     bottom: 0;
-    // background-color: $header-background-color;
     background-color: #000;
   }
   .main {
@@ -185,10 +179,6 @@ $nav-top: 2.7vw;
     padding: 0vw 3vw;
     background: $header-background-color;
     box-shadow: 0 -1px $box-shadow-size #000;
-    // .date-picker {
-    //   position: fixed;
-    //   margin-top: 0.25rem;
-    // }
     .slider {
       margin-left: 7.6vw;
       margin-top: .1vw;
@@ -199,7 +189,6 @@ $nav-top: 2.7vw;
       cursor: pointer;
       width: 1.2vw;
       height: 1.2vw;
-      // margin-left: 1vw;
       margin-top: 0.5vw;
     }
     .pause-btn {
@@ -223,22 +212,6 @@ $nav-top: 2.7vw;
     }
     .led-date {
       position: fixed;
-      z-index: 999;
-      bottom: 6vh;
-      left: auto;
-      right: 0.5vw;
-      margin: 0px!important;
-      // width: (220 / 3.3)px;
-      transform: scale(0.3);
-      transform-origin: 100% 100%;
-      // border-width: 2px 0;
-      padding: 0;
-      // border-radius: 50px;
-      background: transparent;
-      box-shadow: none;
-    }
-    .new-led-date {
-      position: fixed;
       font-family: 'digital-clock-font';
       font-size: 3vw;
       bottom: 7vh;
@@ -258,7 +231,6 @@ $nav-top: 2.7vw;
   background-size: cover;
   background-color: transparent;
   border: none;
-  // padding: 7px 28px;
   color: $primary-text-color;
   text-decoration: none;
   outline: none;
@@ -266,7 +238,6 @@ $nav-top: 2.7vw;
   font-size: $btn-font-size;
   &:hover {
     background-image: url("~@/assets/menu-item-active.png");
-    // color: $primary-text-color-light;
   }
   &.nav-btn-left-1 {
     right: 62vw + $btn-width + 1.5vw;
