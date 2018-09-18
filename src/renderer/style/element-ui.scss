@@ -35,8 +35,7 @@ $--color-primary: $primary-color;
 .el-switch__label--right {
   margin-left: $switch-bar-width / 2;
 }
-.esri-view-surface--inset-outline {
-  &::after {
-    display: none;
-  }
+
+.el-loading-mask {
+  background: rgba(255, 255, 255, 0.1)
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex-col">
+  <el-container v-loading.fullscreen="maskMainView" class="container flex-col">
     <div class="header">
       <img src="@/assets/header.png" class="header-background">
       <div class="nav-btn-group">
@@ -26,10 +26,11 @@
     <div class="main">
       <router-view></router-view>
     </div>
-  </div>
+  </el-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Map from '@/components/Main/Map'
 import Scene from '@/components/Main/Scene'
 
@@ -42,6 +43,11 @@ export default {
   components: {
     'arcgis-map': Map,
     'arcgis-scene': Scene
+  },
+  computed: {
+    ...mapGetters([
+      'maskMainView'
+    ])
   },
   methods: {
     btnClicked (routeName) {
@@ -67,7 +73,7 @@ $nav-top: 2.7vw;
 .container {
   height: 100vh;
   width: 100vw;
-  background-color: $panel-background-color;
+  background-color: $header-background-color;
   .header {
     box-shadow: 0 1px $box-shadow-size #000;
     z-index: 1;
@@ -92,10 +98,10 @@ $nav-top: 2.7vw;
     width: 100vw;
     height: 10vh;
     bottom: 0;
-    background-color: $panel-background-color;
+    background-color: $header-background-color;
   }
   .main {
-    background-color: $panel-background-color;
+    background-color: $header-background-color;
   }
 }
 .nav-btn {
