@@ -70,10 +70,12 @@ export default {
         provinceApi.getProvinceData(this.selectId).then((response) => {
           if (response.status === 200) {
             this.ProvinceData = response.data
-            console.log('response.data', JSON.stringify(response.data))
+            // console.log('response.data', JSON.stringify(response.data))
           }
           this.show = true
         }).catch(() => {})
+      } else {
+        this.show = false
       }
     },
     getavery: function (msg) {
@@ -92,7 +94,7 @@ export default {
   width: 100vw;
   height: 50vh;
   background-color: RGB(17,26, 250, 0.3);// $panel-background-color;
-  border: 1px solid $panel-border-color;
+  border: 0px solid $panel-border-color;
   color: #ccc;
   border: 0;
 }
@@ -102,8 +104,8 @@ export default {
   left: 5vw;
   width: 18vw;
   height: 4vh;
-  background-color: $panel-background-color;
-  border: 1px solid $panel-border-color;
+  background-color: RGB(17,26, 250, 0.3);// $panel-background-color;
+  border: 0px solid $panel-border-color;
   color: #ccc;
 }
 #charttainer{

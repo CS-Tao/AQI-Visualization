@@ -8,6 +8,7 @@
 <script>
 import echarts from 'echarts'
 import resize from '@/components/Utils/ChartResize'
+const lineColor = '#f3f4f5'
 export default {
   mixins: [resize],
   props: {
@@ -31,7 +32,7 @@ export default {
     xaxis: {
       type: Array,
       default: function () {
-        return ['2015', '2016', '2017', '2018']
+        return ['2015']
       }
     },
     sseries: {
@@ -68,7 +69,7 @@ export default {
 
   methods: {
     datafix () {
-      this.temp = []
+      this.temp.splice(0, this.temp.length)
       for (let i = 0; i < this.sseries.length; i++) {
         if (this.sseries[i].data.length === this.xaxis.length) {
           var m = {name: this.sseries[i].name, type: 'line', data: this.sseries[i].data}
@@ -77,6 +78,7 @@ export default {
       }
     },
     initChart () {
+      // console.log('temp.data', this.temp.data)
       this.datafix()
       this.chart = echarts.init(document.getElementById(this.id))
       var option = {
@@ -84,7 +86,7 @@ export default {
           text: ' ',
           left: 'center',
           textStyle: {
-            color: '#bbf'
+            color: lineColor
           }
         },
         tooltip: {
@@ -93,19 +95,12 @@ export default {
         legend: {
           data: this.sseries.name,
           textStyle: {
-            color: '#bbf'
+            color: lineColor
           }
         },
         grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
+          bordercolor: 'rgba(0,0,0,0)',
+          borderwide: 1
         },
         xAxis: {
           ype: 'category',
@@ -114,7 +109,7 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: '#bbf'
+              color: lineColor
             }
           }
         },
@@ -123,28 +118,34 @@ export default {
           axisLabel: {
             show: true,
             textStyle: {
-              color: '#bbf'
+              color: lineColor
             }
-          }
+          },
+          splitLine: {
+            show: false
+          },
+          splitNumber: this.height / 20
         },
         series: this.temp
       }
+      this.chart.clear()
       this.chart.setOption(option)
       this.chart.on('mouseover', (params) => {
         // 控制台打印数据的名称
         let avery = 0
-        for (let i = 0; i < this.sseries.length; i++) {
-          avery += this.sseries[i].data[params.dataIndex]
+        for (let i = 0; i < this.temp.length; i++) {
+          avery += this.temp[i].data[params.dataIndex]
         }
-        avery = avery / this.sseries.length
+        avery = avery / this.temp.length
         this.$emit('sendavery', avery)
-        return Math.floor(avery * 100) / 100
+        // console.log(avery)
+        return avery
       })
     }
   },
   watch: {
     xaxis () {
-      console.log('aa')
+      // console.log('aa')
       this.initChart()
     },
     sseries () {

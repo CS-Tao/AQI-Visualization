@@ -59,28 +59,20 @@ export default {
         tooltip: {
           formatter: '{a} <br/>{b} : {c}%'
         },
-        toolbox: {
-          show: true,
-          feature: {
-            mark: {show: true},
-            restore: {show: true},
-            saveAsImage: {show: true}
-          }
-        },
         series: [
           {
             name: '0.0',
             type: 'gauge',
             min: 0,
-            max: 220,
-            splitNumber: 11,
+            max: 250,
+            splitNumber: 5,
             radius: '95%',
             textStyle: {
               fontSize: this.height / 30
             },
             axisLine: { // 坐标轴线
               lineStyle: { // 属性lineStyle控制线条样式
-                color: [[0.09, 'lime'], [0.82, '#1e90ff'], [1, '#ff4500']],
+                color: [[0.2, 'lime'], [0.4, '#1e90ff'], [0.8, '#aa0'], [1, '#ff4500']],
                 width: 2,
                 shadowColor: '#fff', // 默认透明
                 shadowBlur: 8
@@ -135,7 +127,7 @@ export default {
               textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
                 color: '#fff',
-                fontSize: this.height / 30
+                fontSize: this.height / 25
               }
             },
             // detail: {formatter: '{value}%'},
