@@ -10,18 +10,28 @@ import mapview3dApi from '@/api/mapview3d.api'
 export default {
   data () {
     return {
-      mapView: null
+      mapView: null,
+      pointGraphics: [],
+      centerPointGraphic: null
     }
   },
   computed: {
     ...mapGetters([
       'selectedDateStr',
-      'setMainViewLoadingStatus'
+      'setMainViewLoadingStatus',
+      'mapCenterLat',
+      'mapCenterLng'
     ])
   },
   watch: {
     selectedDateStr () {
       this.reAddPoints()
+    },
+    mapCenterLat () {
+      this.setMapCenter(this.mapCenterLat, this.mapCenterLng)
+    },
+    mapCenterLng () {
+      this.setMapCenter(this.mapCenterLat, this.mapCenterLng)
     }
   },
   mounted () {
@@ -35,31 +45,36 @@ export default {
       loadModules([
         'esri/views/MapView',
         'esri/WebMap',
+        'esri/widgets/Home',
         'esri/widgets/Search',
         'esri/widgets/Locate'
       ], options).then(
         ([
           MapView,
           WebMap,
+          Home,
           Search,
           Locate
         ]) => {
           let webmap = new WebMap({
-            portalItem: { id: '84c291b9ae4949819fb647d723590916' }
+            portalItem: { id: '883df56b63464f34b7924b5dbf7a9550' }
           })
           this.mapView = new MapView({
             map: webmap,
             container: 'viewDiv',
             popup: {
-              dockEnabled: false,
+              dockEnabled: true,
               dockOptions: {
-                buttonEnabled: false,
-                position: 'bottom-left',
+                buttonEnabled: true,
+                position: 'top-right',
                 breakpoint: false
               }
             }
           })
           var searchWidget = new Search({
+            view: this.mapView
+          })
+          var homeWidget = new Home({
             view: this.mapView
           })
           var locateBtn = new Locate({
@@ -68,12 +83,20 @@ export default {
           this.mapView.ui.add(searchWidget, {
             position: 'top-right'
           })
+          this.mapView.ui.add(homeWidget, {
+            position: 'top-left'
+          })
           this.mapView.ui.add(locateBtn, {
             position: 'top-left'
           })
+          this.mapView.on('click', event => { this.mapClicked(event) })
           if (this.selectedDateStr) {
             mapview3dApi.getAllDataInDay(this.selectedDateStr).then(respose => {
-              this.addPoints(respose.data)
+              if (respose.status === 200) {
+                this.addPoints(respose.data)
+              } else {
+                throw new Error('数据加载失败')
+              }
             }).catch(err => {
               console.error(err)
               this.$store.dispatch('setMainViewLoadingStatus', false)
@@ -88,7 +111,8 @@ export default {
     addPoints (data) {
       loadModules(['esri/Graphic', 'dojo/domReady!']).then(([Graphic]) => {
         this.$store.dispatch('setMainViewLoadingStatus', true)
-        var pointGraphics = []
+        this.mapView.graphics.removeMany(this.pointGraphics)
+        this.pointGraphics = []
         for (var i = 0; i < data.length; i++) {
           let color = [255, 255, 255, 0.3]
           let outlineWidth = 0.5
@@ -142,7 +166,7 @@ export default {
             },
             popupTemplate: {
               title:
-                  "<font color='#008000'>&nbsp;&nbsp;{year}年{month}月{day}日&nbsp;&nbsp;&nbsp;{cityName}&nbsp;-&nbsp;空气污染情况",
+                  "<font color='#00a000'>&nbsp;&nbsp;{year}年{month}月{day}日&nbsp;&nbsp;&nbsp;{cityName}&nbsp;-&nbsp;空气污染情况",
               content: [
                 {
                   type: 'fields',
@@ -183,24 +207,75 @@ export default {
             },
             outFields: ['*']
           })
-          pointGraphics.push(pointGraphic)
+          this.pointGraphics.push(pointGraphic)
         }
-        this.mapView.graphics = []
-        this.mapView.graphics.addMany(pointGraphics)
+        this.mapView.graphics.addMany(this.pointGraphics)
         this.$store.dispatch('setMainViewLoadingStatus', false)
       }).catch(err => {
-        console.error(err)
+        this.$message({
+          type: 'error',
+          message: err.message
+        })
         this.$store.dispatch('setMainViewLoadingStatus', false)
       })
     },
-    reAddPoints (data) {
+    reAddPoints () {
       if (this.selectedDateStr) {
         mapview3dApi.getAllDataInDay(this.selectedDateStr).then(respose => {
-          this.addPoints(respose.data)
+          if (respose.status === 200) { this.addPoints(respose.data) } else { throw new Error('数据加载失败') }
         }).catch(err => {
-          console.error(err)
+          this.$message({
+            type: 'error',
+            message: err.message
+          })
           this.$store.dispatch('setMainViewLoadingStatus', false)
         })
+      }
+    },
+    setMapCenter (lat, lng) {
+      if (lng !== null && lat !== null) {
+        loadModules(['esri/Graphic', 'dojo/domReady!']).then(([Graphic]) => {
+          let markerSymbol = {
+            type: 'simple-marker',
+            color: '#a00',
+            size: 10,
+            outline: {
+              color: 'white',
+              width: 1
+            }
+          }
+          let point = {
+            type: 'point',
+            longitude: lng,
+            latitude: lat
+          }
+          if (this.centerPointGraphic && this.mapView.graphics.includes(this.centerPointGraphic)) {
+            this.mapView.graphics.remove(this.centerPointGraphic)
+          }
+          this.centerPointGraphic = new Graphic({
+            geometry: point,
+            symbol: markerSymbol
+          })
+          this.mapView.graphics.add(this.centerPointGraphic)
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: e.message
+          })
+        })
+        this.mapView.center = [lng, lat]
+      } else {
+        if (this.centerPointGraphic && this.mapView.graphics.includes(this.centerPointGraphic)) {
+          this.mapView.graphics.remove(this.centerPointGraphic)
+          this.centerPointGraphic = null
+        }
+      }
+    },
+    mapClicked (event) {
+      this.$store.dispatch('setMapCenterLat', null)
+      this.$store.dispatch('setMapCenterLng', null)
+      if (this.centerPointGraphic && this.mapView.graphics.includes(this.centerPointGraphic)) {
+        this.mapView.graphics.remove(this.centerPointGraphic)
       }
     }
   }

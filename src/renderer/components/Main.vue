@@ -8,7 +8,6 @@
           <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'provincial-static'}" @click="btnClicked('provincial-static')">省份统计</button>
         </div>
         <div class="nav-btn-right-group">
-          <!-- <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'map-view-3d'}" @click="btnClicked('map-view-3d')">立体展示</button> -->
           <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-dist'}" @click="btnClicked('data-dist')">污染分布</button>
           <el-switch
            class="switch-3d"
@@ -26,6 +25,24 @@
     <div class="main">
       <router-view></router-view>
     </div>
+    <div class="footer-container">
+      <div @click="preBtnClicked()">
+        <svg-icon :icon-class="'pre'" class="pre-btn"/>
+      </div>
+      <div @click="pauseBtnClicked()">
+        <svg-icon :icon-class="pause?'pause':'continue'" class="pause-btn"/>
+      </div>
+      <div @click="nextBtnClicked()">
+        <svg-icon :icon-class="'pre'" class="next-btn"/>
+      </div>
+      <el-slider
+        v-model="sliderValue"
+        :max="365*4"
+        class="slider"
+        @change="sliderValueChanged()">
+      </el-slider>
+      <div class="primary-panel right-in led-date">{{dateStrForShow}}</div>
+    </div>
   </el-container>
 </template>
 
@@ -34,10 +51,16 @@ import { mapGetters } from 'vuex'
 import Map from '@/components/Main/Map'
 import Scene from '@/components/Main/Scene'
 
+const startDate = '2014-01-01'
+
 export default {
   data () {
     return {
-      showIn3d: false
+      showIn3d: false,
+      sliderValue: 0,
+      sliderValueDelay: 0,
+      pause: false,
+      autoPlayTimerHandler: null
     }
   },
   components: {
@@ -47,7 +70,16 @@ export default {
   computed: {
     ...mapGetters([
       'maskMainView'
-    ])
+    ]),
+    date () {
+      return new Date(new Date(startDate).getTime() + this.sliderValueDelay * 24 * 60 * 60 * 1000)
+    },
+    dateStr () {
+      return this.formatDate(this.date)
+    },
+    dateStrForShow () {
+      return this.formatDate(new Date(new Date(startDate).getTime() + this.sliderValue * 24 * 60 * 60 * 1000))
+    }
   },
   methods: {
     btnClicked (routeName) {
@@ -61,6 +93,41 @@ export default {
         })
         this.showIn3d = false
       }
+    },
+    pauseBtnClicked () {
+      if (this.pause) {
+        if (this.autoPlayTimerHandler !== null) {
+          window.clearInterval(this.autoPlayTimerHandler)
+          this.autoPlayTimerHandler = null
+        }
+      } else {
+        this.autoPlayTimerHandler = window.setInterval(() => {
+          this.sliderValue += 1
+          this.date = new Date(new Date(startDate).getTime() + this.sliderValue * 24 * 60 * 60 * 1000)
+        }, 2000)
+      }
+      this.pause = !this.pause
+    },
+    preBtnClicked () {
+      this.date = new Date(this.date.getTime() - 24 * 60 * 60 * 1000)
+    },
+    nextBtnClicked () {
+      this.date = new Date(this.date.getTime() + 24 * 60 * 60 * 1000)
+    },
+    sliderValueChanged () {
+      this.sliderValueDelay = this.sliderValue
+      this.$store.dispatch('setSelectedDate', this.dateStr)
+    },
+    formatDate (date) {
+      var yearStr = date.getFullYear()
+      var monthStr = date.getMonth() + 1
+      var dayStr = date.getDate()
+      var dateStr = yearStr
+      if (monthStr < 10) dateStr += '-0' + monthStr
+      else dateStr += '-' + monthStr
+      if (dayStr < 10) dateStr += '-0' + dayStr
+      else dateStr += '-' + dayStr
+      return dateStr
     }
   }
 }
@@ -98,10 +165,61 @@ $nav-top: 2.7vw;
     width: 100vw;
     height: 10vh;
     bottom: 0;
-    background-color: $header-background-color;
+    background-color: #000;
   }
   .main {
     background-color: $header-background-color;
+  }
+  .footer-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 94vw;
+    height: 2.5vw;
+    padding: 0vw 3vw;
+    background: $header-background-color;
+    box-shadow: 0 -1px $box-shadow-size #000;
+    .slider {
+      margin-left: 7.6vw;
+      margin-top: .1vw;
+    }
+    .pre-btn {
+      position: fixed;
+      color: #fff;
+      cursor: pointer;
+      width: 1.2vw;
+      height: 1.2vw;
+      margin-top: 0.5vw;
+    }
+    .pause-btn {
+      position: fixed;
+      color: #fff;
+      cursor: pointer;
+      width: 1.2vw;
+      height: 1.2vw;
+      margin-left: 2.2vw;
+      margin-top: 0.5vw;
+    }
+    .next-btn {
+      position: fixed;
+      color: #fff;
+      cursor: pointer;
+      width: 1.2vw;
+      height: 1.2vw;
+      margin-left: 4.4vw;
+      margin-top: 0.5vw;
+      transform: scale(-1,1);
+    }
+    .led-date {
+      position: fixed;
+      font-family: 'digital-clock-font';
+      font-size: 3vw;
+      bottom: 7vh;
+      right: 0.5vw;
+      width: auto;
+      height: 3vw;
+      padding: 0.4vw 1vw;
+    }
   }
 }
 .nav-btn {
@@ -113,7 +231,6 @@ $nav-top: 2.7vw;
   background-size: cover;
   background-color: transparent;
   border: none;
-  // padding: 7px 28px;
   color: $primary-text-color;
   text-decoration: none;
   outline: none;
@@ -121,7 +238,6 @@ $nav-top: 2.7vw;
   font-size: $btn-font-size;
   &:hover {
     background-image: url("~@/assets/menu-item-active.png");
-    // color: $primary-text-color-light;
   }
   &.nav-btn-left-1 {
     right: 62vw + $btn-width + 1.5vw;
