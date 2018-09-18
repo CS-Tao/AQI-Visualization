@@ -17,7 +17,8 @@ service.interceptors.response.use(
   response => response,
   error => {
     Message({
-      message: error.message,
+      // message: error.message,
+      message: '数据加载失败',
       type: 'error',
       duration: 3000,
       showClose: true

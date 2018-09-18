@@ -98,7 +98,8 @@ $nav-top: 2.7vw;
     width: 100vw;
     height: 10vh;
     bottom: 0;
-    background-color: $header-background-color;
+    // background-color: $header-background-color;
+    background-color: #000;
   }
   .main {
     background-color: $header-background-color;

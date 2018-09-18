@@ -43,26 +43,28 @@ export default {
       loadModules([
         'esri/views/MapView',
         'esri/WebMap',
+        'esri/widgets/Home',
         'esri/widgets/Search',
         'esri/widgets/Locate'
       ], options).then(
         ([
           MapView,
           WebMap,
+          Home,
           Search,
           Locate
         ]) => {
           let webmap = new WebMap({
-            portalItem: { id: '84c291b9ae4949819fb647d723590916' }
+            portalItem: { id: '883df56b63464f34b7924b5dbf7a9550' }
           })
           this.mapView = new MapView({
             map: webmap,
             container: 'viewDiv',
             popup: {
-              dockEnabled: false,
+              dockEnabled: true,
               dockOptions: {
-                buttonEnabled: false,
-                position: 'bottom-left',
+                buttonEnabled: true,
+                position: 'top-right',
                 breakpoint: false
               }
             }
@@ -70,11 +72,17 @@ export default {
           var searchWidget = new Search({
             view: this.mapView
           })
+          var homeWidget = new Home({
+            view: this.mapView
+          })
           var locateBtn = new Locate({
             view: this.mapView
           })
           this.mapView.ui.add(searchWidget, {
             position: 'top-right'
+          })
+          this.mapView.ui.add(homeWidget, {
+            position: 'top-left'
           })
           this.mapView.ui.add(locateBtn, {
             position: 'top-left'
