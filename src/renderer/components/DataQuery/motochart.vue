@@ -13,7 +13,8 @@ export default {
   props: {
     date: {
       type: String,
-      required: true
+      required: true,
+      chart: null
     },
     city: {
       type: Number,
@@ -21,6 +22,9 @@ export default {
     }
   },
   components: {
+  },
+  mounted () {
+    this.showMoto(this.date, this.city)
   },
   watch: {
     city () {
@@ -34,7 +38,7 @@ export default {
         citynumber,
         datestr.substring(0, 4)
       ).then(response => {
-        var motoChart = echarts.init(document.getElementById('moto'))
+        this.chart = echarts.init(document.getElementById('moto'))
         var motoOption = {
           // backgroundColor: '#1b1b1b',
           tooltip: {
@@ -302,7 +306,7 @@ export default {
             }
           ]
         }
-        motoChart.setOption(motoOption)
+        this.chart.setOption(motoOption)
       })
     }
   }
