@@ -3,6 +3,11 @@
 @import './element-ui.scss';
 @import './arcgis.scss';
 
+@font-face {
+  font-family:'digital-clock-font';
+  src: './font/digital.ttf';
+}
+
 body {
 	margin: 0;
   user-select: none;

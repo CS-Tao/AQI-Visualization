@@ -16,12 +16,20 @@ export default {
   computed: {
     ...mapGetters([
       'selectedDateStr',
-      'setMainViewLoadingStatus'
+      'setMainViewLoadingStatus',
+      'mapCenterLat',
+      'mapCenterLng'
     ])
   },
   watch: {
     selectedDateStr () {
       this.reAddPoints()
+    },
+    mapCenterLat () {
+      this.setMapCenter(this.mapCenterLat, this.mapCenterLat)
+    },
+    mapCenterLng () {
+      this.setMapCenter(this.mapCenterLat, this.mapCenterLat)
     }
   },
   mounted () {
@@ -202,6 +210,9 @@ export default {
           this.$store.dispatch('setMainViewLoadingStatus', false)
         })
       }
+    },
+    setMapCenter (lat, lng) {
+      this.mapView.center = [lng, lat]
     }
   }
 }

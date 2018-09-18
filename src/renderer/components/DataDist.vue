@@ -16,19 +16,19 @@
       class="slider"
       @change="sliderValueChanged()">
     </el-slider>
-    <led-date-display :date="date" class="led-date"/>
-    <div class="primary-panel left-in panel">Panel 样式测试</div>
+    <!-- <led-date-display :date="date" class="led-date"/> -->
+    <div class="primary-panel right-in new-led-date">{{dateStr}}</div>
   </div>
 </template>
 
 <script>
-import LedDateDisplay from './DataDist/LedDateDisplay'
+// import LedDateDisplay from './DataDist/LedDateDisplay'
 const startDate = '2014-01-01'
 
 export default {
-  components: {
-    LedDateDisplay
-  },
+  // components: {
+  //   LedDateDisplay
+  // },
   data () {
     return {
       date: new Date(startDate),
@@ -152,12 +152,15 @@ export default {
     background: transparent;
     box-shadow: none;
   }
-}
-.panel {
-  position: fixed;
-  top: 20vh;
-  left: 5vw;
-  width: 20vw;
-  height: 62vh;
+  .new-led-date {
+    position: fixed;
+    font-family: 'digital-clock-font';
+    font-size: 3vw;
+    bottom: 7vh;
+    right: 0.5vw;
+    width: auto;
+    height: 3vw;
+    padding: 0.4vw 1vw;
+  }
 }
 </style>
