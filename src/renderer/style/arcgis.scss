@@ -14,6 +14,7 @@
   background-color: $panel-background-color;
   border: 1px solid $btn-border-color !important;
   color: $btn-text-color;
+  // box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset, 0px 0px 10px 2px rgba(#ffffff, 0.05) !important;
   &:hover {
     background-color: $panel-background-color;
     border-color: $btn-border-color-active !important;
@@ -80,4 +81,45 @@
     background-color: transparent;
     border: 1px solid $btn-border-color-active;
   }
+}
+
+.esri-view-surface--inset-outline {
+  &::after {
+    display: none;
+  }
+}
+
+.esri-widget table {
+  color: $input-text-color;
+}
+
+.esri-popup__feature-buttons .esri-popup__action {
+  color: $primary-text-color-low;
+  &:hover {
+    color: $primary-text-color-light;
+  }
+}
+.esri-popup__button {
+  color: $primary-text-color-low;
+  &:hover {
+    color: $primary-text-color-light;
+  }
+}
+
+.esri-popup--aligned-top-center,
+.esri-popup--aligned-top-right,
+.esri-popup--aligned-top-left,
+.esri-popup--aligned-bottom-center,
+.esri-popup--aligned-bottom-left,
+.esri-popup--aligned-bottom-right {
+  background: $panel-background-color;
+  border: 1px solid $panel-border-color;
+  font-size: 14px;
+}
+.esri-popup__pointer-direction {
+  background: $panel-background-color;
+  border: 1px solid $panel-border-color;
+}
+.esri-popup__pagination-page-text {
+  color: $primary-text-color-low;
 }
