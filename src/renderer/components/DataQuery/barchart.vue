@@ -133,7 +133,7 @@ export default {
         // 获得了城市名称
         this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
         this.$store.dispatch('setMapCenterLng', latlng[params.dataIndex][1])
-        this.city = cityid[params.dataIndex].toString()
+        this.city = parseInt(cityid[params.dataIndex])
       })
     }
   }
