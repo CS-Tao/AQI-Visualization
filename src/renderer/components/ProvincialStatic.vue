@@ -1,28 +1,22 @@
 <template>
   <!-- <json-map class="container" :json-data="jsonData"/> -->
   <div >
-    <div class="panel">
-      <el-select v-model="selectId" clearable filterable @change="getProvinceData()" placeholder="请选择">
-      <el-option
-        v-for="item in provinceNames"
-        :key="item.id"
-        :label="item.name"
-        :value="item.id">
-      </el-option>
-    </el-select>
-    </div>
-    <div class="container" v-if="show">
-        <table border="0">
-          <tr>
-            <td id = "charttainer">
-              <dashbord v-bind:num="message"></dashbord>
-            </td>
-            <td id = "lincontainer">
-              <lines v-on:sendavery="getavery" :xaxis="ProvinceData.xaxis" :sseries="ProvinceData.datalist"> </lines>
-            </td>
-          </tr>
-        </table>
+    <el-select class="select" v-model="selectId" filterable @change="getProvinceData()" placeholder="请选择">
+    <el-option
+      v-for="item in provinceNames"
+      :key="item.id"
+      :label="item.name"
+      :value="item.id">
+    </el-option>
+  </el-select>
+    <div v-if="show">
+      <div class="dashbord">
+        <dashbord v-bind:num="message"></dashbord>
       </div>
+      <div class="lines">
+        <lines style="left:0;bottom:0;" v-on:sendavery="getavery" :xaxis="ProvinceData.xaxis" :sseries="ProvinceData.datalist"> </lines>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -73,6 +67,7 @@ export default {
             // console.log('response.data', JSON.stringify(response.data))
           }
           this.show = true
+          this.$triggerResize()
         }).catch(() => {})
       } else {
         this.show = false
@@ -87,33 +82,23 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/style/variables.scss';
-.container {
+.dashbord {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  height: 50vh;
-  background-color: RGB(17,26, 250, 0.3);// $panel-background-color;
-  border: 0px solid $panel-border-color;
-  color: #ccc;
-  border: 0;
+  right: calc(15px + 1.5vw);
+  bottom: $layout-footer-height+4vw;
+  height: 13vw;
+  width: 13vw;
 }
-.panel{
+.lines {
   position: fixed;
-  bottom: 83vh;
-  left: 5vw;
-  width: 18vw;
-  height: 4vh;
-  background-color: RGB(17,26, 250, 0.3);// $panel-background-color;
-  border: 0px solid $panel-border-color;
-  color: #ccc;
+  left: 0vw;
+  bottom: $layout-footer-height;
+  height: 18vw;
+  width: 80vw
 }
-#charttainer{
-height: 40vh;
-width: 30vw
-}
-#lincontainer{
-height: 40vh;
-width: 50vw
+.select {
+  position: fixed;
+  top: 20vh;
+  right: 15px;
 }
 </style>

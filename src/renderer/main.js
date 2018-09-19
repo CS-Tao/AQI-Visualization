@@ -25,6 +25,13 @@ Vue.openLink = (url) => {
 }
 Vue.prototype.$openLink = Vue.openLink
 
+Vue.triggerResize = () => {
+  let e = document.createEvent('Event')
+  e.initEvent('resize', true, true)
+  window.dispatchEvent(e)
+}
+Vue.prototype.$triggerResize = Vue.triggerResize
+
 /* eslint-disable no-new */
 new Vue({
   components: { App },
