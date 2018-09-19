@@ -6,6 +6,7 @@
 import echarts from 'echarts'
 import { getIndex3 } from '@/api/dataQuery.api'
 import resize from '@/components/Utils/ChartResize'
+const titleColor = '#f3f4f5'
 export default {
   mixins: [resize],
   props: {
@@ -36,7 +37,7 @@ export default {
         citynumber,
         datestr.substring(0, 4)
       ).then(response => {
-        this.chart = echarts.init(document.getElementById('moto'))
+        this.chart = echarts.init(document.getElementById('moto'), 'light')
         var motoOption = {
           // backgroundColor: '#1b1b1b',
           tooltip: {
@@ -48,15 +49,15 @@ export default {
               type: 'gauge',
               min: 0,
               max: 200,
-              splitNumber: 10,
+              splitNumber: 5,
               radius: '80%',
               axisLine: {
                 // 坐标轴线
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: [[0.25, 'lime'], [0.5, '#1e90ff'], [1, '#ff4500']],
+                  // color: [[0.25, 'lime'], [0.5, '#1e90ff'], [1, '#ff4500']],
                   width: 3,
-                  shadowColor: '#fff', // 默认透明
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 3
                 }
               },
@@ -65,8 +66,8 @@ export default {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 0
                 }
               },
@@ -75,8 +76,8 @@ export default {
                 length: 15, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: 'auto',
-                  shadowColor: '#fff', // 默认透明
+                  // color: 'auto',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 3
                 }
               },
@@ -86,38 +87,39 @@ export default {
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 1
                 }
               },
               pointer: {
                 // 分隔线
-                shadowColor: '#fff', // 默认透明
+                // shadowColor: '#fff', // 默认透明
                 shadowBlur: 5
               },
               title: {
+                offsetCenter: [0, '-10%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
                   fontSize: 20,
                   fontStyle: 'italic',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  color: titleColor,
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 2
                 }
               },
               detail: {
-                backgroundColor: 'rgba(30,144,255,0.8)',
-                borderWidth: 1,
-                borderColor: '#fff',
-                shadowColor: '#fff', // 默认透明
+                // backgroundColor: 'rgba(30,144,255,0.8)',
+                // borderWidth: 1,
+                // borderColor: '#fff',
+                // shadowColor: '#fff', // 默认透明
                 shadowBlur: 0,
                 offsetCenter: [0, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder',
-                  color: '#fff'
+                  fontWeight: 'bolder'
+                  // color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['aqi']), name: 'AQI' }]
@@ -135,10 +137,10 @@ export default {
                 // 坐标轴线
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: [[0.29, 'lime'], [0.86, '#1e90ff'], [1, '#ff4500']],
+                  // color: [[0.29, 'lime'], [0.86, '#1e90ff'], [1, '#ff4500']],
                   width: 2,
-                  shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  // shadowColor: '#fff', // 默认透明
+                  shadowBlur: 0
                 }
               },
               axisLabel: {
@@ -146,16 +148,18 @@ export default {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
+                  shadowBlur: 0
                 },
                 formatter: function (v) {
                   switch (v + '') {
                     case '0':
-                      return ''
+                      return '0'
+                    case '50':
+                      return '50'
                     case '100':
-                      return ''
+                      return '100'
                   }
                 }
               },
@@ -164,9 +168,9 @@ export default {
                 length: 12, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: 'auto',
-                  shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  // color: 'auto',
+                  // shadowColor: '#fff', // 默认透明
+                  shadowBlur: 0
                 }
               },
               splitLine: {
@@ -175,40 +179,40 @@ export default {
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
+                  shadowBlur: 0
                 }
               },
               pointer: {
                 width: 5,
-                shadowColor: '#fff', // 默认透明
-                shadowBlur: 2
+                // shadowColor: '#fff', // 默认透明
+                shadowBlur: 0
               },
               title: {
-                offsetCenter: [0, '-30%'], // x, y，单位px
+                offsetCenter: [0, '-10%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
                   fontStyle: 'italic',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
-                  shadowBlur: 2
+                  color: titleColor,
+                  // shadowColor: '#fff', // 默认透明
+                  shadowBlur: 0
                 }
               },
               detail: {
                 // backgroundColor: 'rgba(30,144,255,0.8)',
                 // borderWidth: 1,
-                borderColor: '#fff',
-                shadowColor: '#fff', // 默认透明
+                // borderColor: '#fff',
+                // shadowColor: '#fff', // 默认透明
                 shadowBlur: 0,
                 width: 80,
-                height: 30,
-                offsetCenter: [25, '20%'], // x, y，单位px
+                height: 20,
+                offsetCenter: [20, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder',
-                  color: '#fff'
+                  fontWeight: 'bolder'
+                  // color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['pm25']), name: 'PM2.5' }]
@@ -227,9 +231,9 @@ export default {
                 // 坐标轴线
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: [[0.2, 'lime'], [0.8, '#1e90ff'], [1, '#ff4500']],
+                  // color: [[0.2, 'lime'], [0.8, '#1e90ff'], [1, '#ff4500']],
                   width: 2,
-                  shadowColor: '#fff', // 默认透明
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 3
                 }
               },
@@ -238,8 +242,8 @@ export default {
                 length: 12, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  color: 'auto',
-                  shadowColor: '#fff', // 默认透明
+                  // color: 'auto',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 3
                 }
               },
@@ -247,16 +251,18 @@ export default {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 3
                 },
                 formatter: function (v) {
                   switch (v + '') {
                     case '0':
-                      return ''
+                      return '0'
+                    case '50':
+                      return '50'
                     case '100':
-                      return ''
+                      return '100'
                   }
                 }
               },
@@ -266,38 +272,38 @@ export default {
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  // color: '#fff',
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 1
                 }
               },
               pointer: {
                 width: 2,
-                shadowColor: '#fff', // 默认透明
+                // shadowColor: '#fff', // 默认透明
                 shadowBlur: 2
               },
               title: {
-                offsetCenter: [0, '-30%'], // x, y，单位px
+                offsetCenter: [0, '-10%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
                   fontStyle: 'italic',
-                  color: '#fff',
-                  shadowColor: '#fff', // 默认透明
+                  color: titleColor,
+                  // shadowColor: '#fff', // 默认透明
                   shadowBlur: 2
                 }
               },
               detail: {
-                borderColor: '#fff',
-                shadowColor: '#fff', // 默认透明
+                // borderColor: '#fff',
+                // shadowColor: '#fff', // 默认透明
                 shadowBlur: 0,
                 width: 80,
                 height: 30,
-                offsetCenter: [-25, '20%'], // x, y，单位px
+                offsetCenter: [-20, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder',
-                  color: '#fff'
+                  fontWeight: 'bolder'
+                  // color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['so2']), name: 'SO2' }]

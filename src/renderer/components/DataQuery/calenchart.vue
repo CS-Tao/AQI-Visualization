@@ -6,6 +6,7 @@
 import echarts from 'echarts'
 import { getCalender } from '@/api/dataQuery.api'
 import resize from '@/components/Utils/ChartResize'
+const titleColor = '#f3f4f5'
 export default {
   mixins: [resize],
   props: {
@@ -17,20 +18,24 @@ export default {
     city: {
       type: Number,
       required: true
+    },
+    cityname: {
+      type: String,
+      required: true
     }
   },
   components: {
   },
   watch: {
     city () {
-      this.showCalen(this.date, this.city)
+      this.showCalen(this.date, this.city, this.cityname)
     }
   },
   mounted () {
-    this.showCalen(this.date, this.city)
+    this.showCalen(this.date, this.city, this.cityname)
   },
   methods: {
-    showCalen (datestr, citynumber) {
+    showCalen (datestr, citynumber, cityname) {
       this.chart = echarts.init(document.getElementById('calender'))
       getCalender(
         'json',
@@ -40,10 +45,10 @@ export default {
         var calenderOption = {
           title: {
             // top: 30,
-            text: '空气污染',
+            text: cityname + '全年空气污染情况',
             left: 'center',
             textStyle: {
-              color: '#3989E3'
+              color: titleColor
             }
           },
           tooltip: {
@@ -54,7 +59,7 @@ export default {
             left: 'center',
             data: ['aqi', 'Top 10'],
             textStyle: {
-              color: '#3989E3'
+              color: titleColor
             }
           },
           calendar: {
@@ -137,7 +142,7 @@ export default {
 
 <style lang="scss" scoped>
 .calender {
-  width: 50vw;
+  width: 52vw;
   height: 25vh;
 }
 </style>

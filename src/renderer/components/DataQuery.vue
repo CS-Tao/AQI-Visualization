@@ -41,10 +41,10 @@ export default {
 
 <style lang="scss" scoped>
 .chart {
-  top: 60vh;
+  top: 70vh;
   left: 0vw;
-  width: 30vw;
-  height: 35vh;
+  width: 60vw;
+  height: 25vh;
   position: fixed;
 }
 </style>

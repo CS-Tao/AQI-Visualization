@@ -35,7 +35,7 @@ export default {
   height: 10vh;
   font-family:'digital-clock-font';
   font-size: 100px;
-  color: #6390df;
+  color: #00a1e1;
   text-align: center;
   line-height: 15vh;
   position: relative;
