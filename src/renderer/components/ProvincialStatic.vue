@@ -98,7 +98,10 @@ export default {
 }
 .select {
   position: fixed;
-  top: 20vh;
+  top: calc(100/1920*111vw + 20px);
+  right: 15px;
+  width: 240px;
+  height: 32px;
   right: 15px;
 }
 </style>
