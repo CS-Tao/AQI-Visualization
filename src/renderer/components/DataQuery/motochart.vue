@@ -1,7 +1,5 @@
 <template>
-  <div class="chartpanel">
-    <div class="moto" id="moto"></div>
-  </div>
+  <div class="moto" id="moto"></div>
 </template>
 
 <script>
@@ -314,11 +312,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chartpanel{
-  width:30vw;
-  .moto {
-    width: 30vw;
-    height: 30vh;
-  }
+.moto {
+  width: 30vw;
+  height: 30vh;
 }
 </style>

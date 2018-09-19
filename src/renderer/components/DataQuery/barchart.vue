@@ -1,9 +1,15 @@
 <template>
-  <div class="chartpanel">
+  <div>
     <div class="barchart" id="barchart"></div>
-    <avgnumber :date="date" :city="city" v-if="isClick" :average="average"></avgnumber>
-    <calenchart :date="date" :city="city" v-if="!isClick"></calenchart>
-    <motochart :date="date" :city="city" v-if="!isClick"></motochart>
+    <div v-if="isClick" class="ave">
+      <avgnumber :date="date" :city="city" :average="average"></avgnumber>
+    </div>
+    <div v-if="!isClick" class="calen">
+      <calenchart :date="date" :city="city"></calenchart>
+    </div>
+    <div class="mo">
+      <motochart :date="date" :city="city" v-if="!isClick"></motochart>
+    </div>
   </div>
 </template>
 
@@ -39,6 +45,9 @@ export default {
     date () {
       this.getBar(this.date)
     }
+  },
+  mounted () {
+    this.getBar(this.date)
   },
   methods: {
     getBar (datestr) {
@@ -156,13 +165,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chartpanel{
-  width:30vw;
-  .barchart {
-    margin-top: 1vh;
-    width: 30vw;
-    height: 30vh;
-    position: relative;
-  }
+.barchart{
+  height: 35vh;
+  width:30vm;
+}
+.ave{
+  top:70vh;
+  left:81vw;
+  width: 10vw;
+  height: 15vh;
+  position: fixed;
+}
+.calen{
+  top:70vh;
+  left:30vw;
+  width: 50vw;
+  height: 25vh;
+  position: fixed;
+}
+.mo{
+  top:38vh;
+  left:70vw;
+  width: 30vw;
+  height: 30vh;
+  position: fixed;
 }
 </style>
