@@ -13,7 +13,8 @@ export default {
   props: {
     date: {
       type: String,
-      required: true
+      required: true,
+      chart: null
     },
     city: {
       type: Number,
@@ -27,9 +28,12 @@ export default {
       this.showCalen(this.date, this.city)
     }
   },
+  mounted () {
+    this.showCalen(this.date, this.city)
+  },
   methods: {
     showCalen (datestr, citynumber) {
-      var calenderChart = echarts.init(document.getElementById('average'))
+      this.chart = echarts.init(document.getElementById('average'))
       getCalender(
         'json',
         citynumber,
@@ -126,7 +130,7 @@ export default {
             }
           ]
         }
-        calenderChart.setOption(calenderOption)
+        this.chart.setOption(calenderOption)
       })
     }
   }
@@ -134,17 +138,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@font-face{
- font-family:'digital-clock-font';
- src: url('../../style/font/digital.ttf');
-}
 .chartpanel{
   width:30vw;
   .average {
     margin-top: 2vh;
     width: 30vw;
     height: 20vh;
-    font-family:'digital-clock-font';
     font-size: 100px;
     color: #b3bac6;
     text-align: center;
