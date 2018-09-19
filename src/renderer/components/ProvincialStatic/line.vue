@@ -127,7 +127,7 @@ export default {
         grid: {
           bordercolor: 'rgba(0,0,0,0)',
           borderwide: 1,
-          top: '25',
+          top: '30',
           bottom: '22',
           left: '48',
           right: '20'
@@ -167,7 +167,10 @@ export default {
             }
           },
           splitLine: {
-            show: false
+            show: true,
+            lineStyle: {
+              color: '#999'
+            }
           },
           splitNumber: this.height / 20,
           axisLine: {
@@ -180,6 +183,7 @@ export default {
       }
       this.chart.clear()
       this.chart.setOption(option)
+      this.$triggerResize()
     }
   },
   watch: {
