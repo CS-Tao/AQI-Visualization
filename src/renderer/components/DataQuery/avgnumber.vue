@@ -20,6 +20,9 @@ export default {
     average () {
       document.getElementById('average').innerText = this.average
     }
+  },
+  mounted () {
+    if (this.average !== 0) { document.getElementById('average').innerText = this.average }
   }
 }
 </script>
@@ -32,7 +35,7 @@ export default {
 .chartpanel{
   width:30vw;
   .average {
-    margin-top: 2vh;
+    margin-top: 1vh;
     width: 30vw;
     height: 20vh;
     font-family:'digital-clock-font';

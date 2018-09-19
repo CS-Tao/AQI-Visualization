@@ -48,7 +48,6 @@ export default {
       getTop10('json', datestr).then(response => {
         // alert(JSON.stringify(response.data.data))
         if (response.status === 200) {
-          this.isClick = true
           latlng = response.data['latlng']
           cityid = response.data['cityId']
           var option = {
@@ -134,6 +133,7 @@ export default {
           // 使用刚指定的配置项和数据显示图表。
           this.chart.setOption(option)
           this.average = response.data['average']
+          this.isClick = true
           this.chart.on('click', (params) => {
           // 获得了城市名称
             this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
@@ -159,6 +159,7 @@ export default {
 .chartpanel{
   width:30vw;
   .barchart {
+    margin-top: 1vh;
     width: 30vw;
     height: 30vh;
     position: relative;
