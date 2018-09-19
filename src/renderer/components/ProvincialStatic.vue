@@ -67,7 +67,7 @@ export default {
             // console.log('response.data', JSON.stringify(response.data))
           }
           this.show = true
-          this.$triggerResize()
+          // this.$triggerResize()
         }).catch(() => {})
       } else {
         this.show = false
@@ -92,8 +92,8 @@ export default {
 .lines {
   position: fixed;
   left: 0vw;
-  bottom: $layout-footer-height;
-  height: 18vw;
+  bottom: $layout-footer-height+1vw;
+  height: 14vw;
   width: 80vw
 }
 .select {

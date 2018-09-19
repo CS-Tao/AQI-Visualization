@@ -75,7 +75,7 @@ export default {
             splitNumber: 5,
             radius: '95%',
             textStyle: {
-              fontSize: this.height / 30
+              fontSize: 15
             },
             axisLine: { // 坐标轴线
               lineStyle: { // 属性lineStyle控制线条样式
@@ -117,7 +117,7 @@ export default {
             title: {
               textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
-                fontSize: 15,
+                fontSize: this.width / 30,
                 fontStyle: 'italic',
                 color: '#eee',
                 shadowColor: '#fff', // 默认透明
