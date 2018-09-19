@@ -65,7 +65,7 @@ export default {
           legend: {
             top: '15%',
             left: 'center',
-            data: ['aqi', '当前日期', 'Top 10'],
+            data: ['aqi', 'Top 10', '当前选中'],
             textStyle: {
               color: titleColor
             }
@@ -114,20 +114,6 @@ export default {
               }
             },
             {
-              name: '当前日期',
-              type: 'effectScatter',
-              coordinateSystem: 'calendar',
-              data: current,
-              symbolSize: function (val) {
-                return val[1] / 30
-              },
-              itemStyle: {
-                normal: {
-                  color: '#dd0000'
-                }
-              }
-            },
-            {
               name: 'Top 10',
               type: 'effectScatter',
               coordinateSystem: 'calendar',
@@ -152,6 +138,20 @@ export default {
                 }
               },
               zlevel: 1
+            },
+            {
+              name: '当前选中',
+              type: 'effectScatter',
+              coordinateSystem: 'calendar',
+              data: current,
+              symbolSize: function (val) {
+                return val[1] / 30
+              },
+              itemStyle: {
+                normal: {
+                  color: '#dd0000'
+                }
+              }
             }
           ]
         }
