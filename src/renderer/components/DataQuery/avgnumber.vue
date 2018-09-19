@@ -1,7 +1,5 @@
 <template>
-  <div class="chartpanel">
-    <div class="average" id="average"></div>
-  </div>
+  <div class="average" id="average"></div>
 </template>
 
 <script>
@@ -32,18 +30,14 @@ export default {
  font-family:'digital-clock-font';
  src: url('../../style/font/digital.ttf');
 }
-.chartpanel{
-  width:30vw;
-  .average {
-    margin-top: 1vh;
-    width: 30vw;
-    height: 20vh;
-    font-family:'digital-clock-font';
-    font-size: 100px;
-    color: #b3bac6;
-    text-align: center;
-    line-height: 30vh;
-    position: relative;
-  }
+.average {
+  width: 15vw;
+  height: 10vh;
+  font-family:'digital-clock-font';
+  font-size: 100px;
+  color: #00a1e1;
+  text-align: center;
+  line-height: 15vh;
+  position: relative;
 }
 </style>

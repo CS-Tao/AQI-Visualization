@@ -1,13 +1,12 @@
 <template>
-  <div class="chartpanel">
-    <div class="average" id="average"></div>
-  </div>
+  <div class="calender" id="calender"></div>
 </template>
 
 <script>
 import echarts from 'echarts'
 import { getCalender } from '@/api/dataQuery.api'
 import resize from '@/components/Utils/ChartResize'
+const titleColor = '#f3f4f5'
 export default {
   mixins: [resize],
   props: {
@@ -19,21 +18,25 @@ export default {
     city: {
       type: Number,
       required: true
+    },
+    cityname: {
+      type: String,
+      required: true
     }
   },
   components: {
   },
   watch: {
     city () {
-      this.showCalen(this.date, this.city)
+      this.showCalen(this.date, this.city, this.cityname)
     }
   },
   mounted () {
-    this.showCalen(this.date, this.city)
+    this.showCalen(this.date, this.city, this.cityname)
   },
   methods: {
-    showCalen (datestr, citynumber) {
-      this.chart = echarts.init(document.getElementById('average'))
+    showCalen (datestr, citynumber, cityname) {
+      this.chart = echarts.init(document.getElementById('calender'))
       getCalender(
         'json',
         citynumber,
@@ -42,10 +45,10 @@ export default {
         var calenderOption = {
           title: {
             // top: 30,
-            text: '空气污染',
+            text: cityname + '全年空气污染情况',
             left: 'center',
             textStyle: {
-              color: '#3989E3'
+              color: titleColor
             }
           },
           tooltip: {
@@ -56,13 +59,13 @@ export default {
             left: 'center',
             data: ['aqi', 'Top 10'],
             textStyle: {
-              color: '#3989E3'
+              color: titleColor
             }
           },
           calendar: {
             width: '96%',
-            height: '50%',
-            top: '45%',
+            height: '60%',
+            top: '30%',
             left: 'center',
             range: [response.data[0][0].substring(0, 4) + '-01-01', response.data[0][0].substring(0, 4) + '-12-31'],
             splitLine: {
@@ -94,7 +97,7 @@ export default {
               coordinateSystem: 'calendar',
               data: response.data,
               symbolSize: function (val) {
-                return val[1] / 40
+                return val[1] / 30
               },
               itemStyle: {
                 normal: {
@@ -112,7 +115,7 @@ export default {
                 })
                 .slice(0, 10),
               symbolSize: function (val) {
-                return val[1] / 40
+                return val[1] / 30
               },
               showEffectOn: 'render',
               rippleEffect: {
@@ -138,17 +141,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chartpanel{
-  width:30vw;
-  .average {
-    margin-top: 2vh;
-    width: 30vw;
-    height: 20vh;
-    font-size: 100px;
-    color: #b3bac6;
-    text-align: center;
-    line-height: 30vh;
-    position: relative;
-  }
+.calender {
+  width: 52vw;
+  height: 25vh;
 }
 </style>
