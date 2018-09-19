@@ -42,6 +42,14 @@ export default {
         citynumber,
         datestr.substring(0, 4)
       ).then(response => {
+        var current = []
+        for (var i = 0; i < response.data.length; i++) {
+          if (response.data[i][0] === this.date) {
+            current.push(response.data[i])
+          } else {
+            current.push([response.data[i][0], 0])
+          }
+        }
         var calenderOption = {
           title: {
             // top: 30,
@@ -57,7 +65,7 @@ export default {
           legend: {
             top: '15%',
             left: 'center',
-            data: ['aqi', 'Top 10'],
+            data: ['aqi', '当前日期', 'Top 10'],
             textStyle: {
               color: titleColor
             }
@@ -102,6 +110,20 @@ export default {
               itemStyle: {
                 normal: {
                   color: '#ddb926'
+                }
+              }
+            },
+            {
+              name: '当前日期',
+              type: 'effectScatter',
+              coordinateSystem: 'calendar',
+              data: current,
+              symbolSize: function (val) {
+                return val[1] / 30
+              },
+              itemStyle: {
+                normal: {
+                  color: '#dd0000'
                 }
               }
             },

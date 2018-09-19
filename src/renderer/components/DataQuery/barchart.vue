@@ -144,7 +144,7 @@ export default {
           this.chart.setOption(option)
           this.average = response.data['average']
           this.isClick = true
-          this.chart.on('mouseover', (params) => {
+          this.chart.on('click', (params) => {
           // 获得了城市名称
             this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
             this.$store.dispatch('setMapCenterLng', latlng[params.dataIndex][1])

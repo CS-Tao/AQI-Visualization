@@ -32,8 +32,10 @@ export default {
   },
   methods: {
     changeDate (m) {
-      this.isShow = true
-      this.value = m
+      if (m) {
+        this.isShow = true
+        this.value = m
+      }
     }
   }
 }
