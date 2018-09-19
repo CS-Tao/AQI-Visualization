@@ -46,14 +46,12 @@ export default {
         'esri/views/MapView',
         'esri/WebMap',
         'esri/widgets/Home',
-        'esri/widgets/Search',
         'esri/widgets/Locate'
       ], options).then(
         ([
           MapView,
           WebMap,
           Home,
-          Search,
           Locate
         ]) => {
           let webmap = new WebMap({
@@ -71,17 +69,11 @@ export default {
               }
             }
           })
-          var searchWidget = new Search({
-            view: this.mapView
-          })
           var homeWidget = new Home({
             view: this.mapView
           })
           var locateBtn = new Locate({
             view: this.mapView
-          })
-          this.mapView.ui.add(searchWidget, {
-            position: 'top-right'
           })
           this.mapView.ui.add(homeWidget, {
             position: 'top-left'
