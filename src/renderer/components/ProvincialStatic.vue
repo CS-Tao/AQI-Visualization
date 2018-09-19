@@ -40,7 +40,7 @@ export default {
       selectId: '',
       provinceNames: [],
       ProvinceData: {},
-      message: 0,
+      message: [0, '2017'],
       show: false
     }
   },

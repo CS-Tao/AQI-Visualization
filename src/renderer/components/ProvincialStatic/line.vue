@@ -51,7 +51,8 @@ export default {
   data () {
     return {
       chart: null,
-      temp: []
+      temp: [],
+      mposition: -1
     }
   },
 
@@ -80,7 +81,7 @@ export default {
     initChart () {
       // console.log('temp.data', this.temp.data)
       this.datafix()
-      this.chart = echarts.init(document.getElementById(this.id))
+      this.chart = echarts.init(document.getElementById(this.id), 'light')
       var option = {
         title: {
           text: ' ',
@@ -90,9 +91,34 @@ export default {
           }
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          backgroundColor: 'rgba(245, 245, 245, 0.6)',
+          borderWidth: 1,
+          borderColor: '#000',
+          padding: 10,
+          textStyle: {
+            color: '#000'
+          },
+          position: (pos, params, el, elRect, size) => {
+            // console.log('params:', params[0].dataIndex)
+            if (this.mposition !== params[0].dataIndex) {
+              this.mposition = params[0].dataIndex
+              let avery = 0
+              for (let i = 0; i < this.temp.length; i++) {
+                avery += this.temp[i].data[params[0].dataIndex]
+              }
+              avery = avery / this.temp.length
+              var m = [avery, this.xaxis[params[0].dataIndex]]
+              this.$emit('sendavery', m)
+            }
+          },
+          extraCssText: 'width: 170px'
         },
         legend: {
+          type: 'scroll',
+          left: '10%',
+          right: '10%',
+          top: 0,
           data: this.sseries.name,
           textStyle: {
             color: lineColor
@@ -100,21 +126,40 @@ export default {
         },
         grid: {
           bordercolor: 'rgba(0,0,0,0)',
-          borderwide: 1
+          borderwide: 1,
+          top: '25',
+          bottom: '22',
+          left: '48',
+          right: '20'
         },
         xAxis: {
           ype: 'category',
-          boundaryGap: true,
+          boundaryGap: false,
           data: this.xaxis,
           axisLabel: {
+            clickable: true,
             show: true,
             textStyle: {
               color: lineColor
+            }
+          },
+          axisLine: {
+            lineStyle: {
+              color: lineColor
+            }
+          },
+          splitLine: {
+            show: false,
+            lineStyle: {
+              // 使用深浅的间隔色
+              color: ['#aaa', '#ddd']
             }
           }
         },
         yAxis: {
           type: 'value',
+          min: 'dataMin',
+          max: 'dataMax',
           axisLabel: {
             show: true,
             textStyle: {
@@ -124,28 +169,21 @@ export default {
           splitLine: {
             show: false
           },
-          splitNumber: this.height / 20
+          splitNumber: this.height / 20,
+          axisLine: {
+            lineStyle: {
+              color: lineColor
+            }
+          }
         },
         series: this.temp
       }
       this.chart.clear()
       this.chart.setOption(option)
-      this.chart.on('mouseover', (params) => {
-        // 控制台打印数据的名称
-        let avery = 0
-        for (let i = 0; i < this.temp.length; i++) {
-          avery += this.temp[i].data[params.dataIndex]
-        }
-        avery = avery / this.temp.length
-        this.$emit('sendavery', avery)
-        // console.log(avery)
-        return avery
-      })
     }
   },
   watch: {
     xaxis () {
-      // console.log('aa')
       this.initChart()
     },
     sseries () {

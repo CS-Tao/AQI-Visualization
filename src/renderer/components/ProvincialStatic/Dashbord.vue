@@ -15,10 +15,9 @@ export default {
       type: String,
       default: 'chart'
     },
-
     id: {
       type: String,
-      default: 'chart'
+      default: 'Dashbord'
     },
     width: {
       type: String,
@@ -29,8 +28,14 @@ export default {
       default: '100%'
     },
     num: {
-      type: Number,
-      default: 30
+      type: Array,
+      default: () => {
+        return [30, '2014']
+      }
+    },
+    province: {
+      type: String,
+      default: '2014'
     }
   },
 
@@ -54,6 +59,8 @@ export default {
 
   methods: {
     initChart () {
+      var m1 = this.num[0].toFixed(2)
+      var m2 = this.num[1] + ' 年平均污染'
       this.chart = echarts.init(document.getElementById(this.id))
       this.chart.setOption({
         tooltip: {
@@ -114,7 +121,8 @@ export default {
                 fontStyle: 'italic',
                 color: '#eee',
                 shadowColor: '#fff', // 默认透明
-                shadowBlur: 10
+                shadowBlur: 10,
+                text: m2
               }
             },
             detail: {
@@ -131,7 +139,7 @@ export default {
               }
             },
             // detail: {formatter: '{value}%'},
-            data: [{value: this.num.toFixed(2), name: '平均污染'}]
+            data: [{value: m1, name: m2}]
           }
         ]
       })
