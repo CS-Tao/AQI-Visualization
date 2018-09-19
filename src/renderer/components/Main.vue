@@ -52,6 +52,7 @@ import Map from '@/components/Main/Map'
 import Scene from '@/components/Main/Scene'
 
 const startDate = '2014-01-01'
+const dateSpan = 365 * 4
 
 export default {
   data () {
@@ -103,16 +104,21 @@ export default {
       } else {
         this.autoPlayTimerHandler = window.setInterval(() => {
           this.sliderValue += 1
-          this.date = new Date(new Date(startDate).getTime() + this.sliderValue * 24 * 60 * 60 * 1000)
+          if (this.sliderValue > dateSpan) { this.sliderValue %= dateSpan }
+          this.sliderValueChanged()
         }, 2000)
       }
       this.pause = !this.pause
     },
     preBtnClicked () {
-      this.date = new Date(this.date.getTime() - 24 * 60 * 60 * 1000)
+      this.sliderValue -= 1
+      if (this.sliderValue > dateSpan) { this.sliderValue %= dateSpan }
+      this.sliderValueChanged()
     },
     nextBtnClicked () {
-      this.date = new Date(this.date.getTime() + 24 * 60 * 60 * 1000)
+      this.sliderValue += 1
+      if (this.sliderValue > dateSpan) { this.sliderValue %= dateSpan }
+      this.sliderValueChanged()
     },
     sliderValueChanged () {
       this.sliderValueDelay = this.sliderValue
@@ -175,7 +181,7 @@ $nav-top: 2.7vw;
     bottom: 0;
     left: 0;
     width: 94vw;
-    height: 2.5vw;
+    height: $layout-footer-height;
     padding: 0vw 3vw;
     background: $header-background-color;
     box-shadow: 0 -1px $box-shadow-size #000;
@@ -214,8 +220,8 @@ $nav-top: 2.7vw;
       position: fixed;
       font-family: 'digital-clock-font';
       font-size: 3vw;
-      bottom: 7vh;
-      right: 0.5vw;
+      bottom: $layout-footer-height + 1vw;
+      right: 15px;
       width: auto;
       height: 3vw;
       padding: 0.4vw 1vw;

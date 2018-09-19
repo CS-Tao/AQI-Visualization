@@ -7,7 +7,7 @@ $primary-text-color-light: #f3f4f5;
 $header-background-color: rgb(11, 21, 50);
 
 $panel-border-color: $primary-color;
-$panel-background-color: rgb(7, 39, 77);
+$panel-background-color: rgba(7, 39, 77, .85);
 
 $btn-border-color: $primary-color;
 $btn-text-color: $primary-color;
@@ -25,3 +25,5 @@ $switch-bar-height: $btn-height / 1.4;
 $switch-bar-width: $switch-bar-height;
 $switch-width: $switch-bar-width * 2.5;
 $switch-height: $switch-bar-height * 1.1;
+
+$layout-footer-height: 2.5vw;

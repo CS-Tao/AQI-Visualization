@@ -131,6 +131,7 @@ export default {
           let coValue = data[i].value[3]
           let no2Value = data[i].value[4]
           let so2Value = data[i].value[5]
+          let level = data[i].level
           let point = {
             type: 'point', // autocasts as new Point()
             longitude: lng,
@@ -152,17 +153,18 @@ export default {
             geometry: point,
             symbol: markerSymbol,
             attributes: {
-              cityId: cityId,
-              cityName: cityName,
-              year: year,
-              month: month,
-              day: day,
-              aqiValue: aqiValue,
-              pm25Value: pm25Value,
-              pm10Value: pm10Value,
-              coValue: coValue,
-              no2Value: no2Value,
-              so2Value: so2Value
+              cityId,
+              cityName,
+              year,
+              month,
+              day,
+              aqiValue,
+              pm25Value,
+              pm10Value,
+              coValue,
+              no2Value,
+              so2Value,
+              level
             },
             popupTemplate: {
               title:
@@ -200,6 +202,11 @@ export default {
                       fieldName: 'so2Value',
                       visible: true,
                       label: 'SO2'
+                    },
+                    {
+                      fieldName: 'level',
+                      visible: true,
+                      label: '等级'
                     }
                   ]
                 }
