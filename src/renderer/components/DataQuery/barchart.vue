@@ -144,6 +144,7 @@ export default {
           this.chart.setOption(option)
           this.average = response.data['average']
           this.isClick = true
+          this.$triggerResize()
           this.chart.on('click', (params) => {
           // 获得了城市名称
             this.$store.dispatch('setMapCenterLat', latlng[params.dataIndex][0])
@@ -191,10 +192,10 @@ export default {
   position: fixed;
 }
 .mo{
-  top:50vh;
-  left:67.5vw;
-  width: 30vw;
-  height: 30vh;
+  top:70vh;
+  left:80.6vw;
+  width: 20vw;
+  height: 20vh;
   position: fixed;
 }
 </style>

@@ -37,7 +37,7 @@ export default {
         citynumber,
         datestr.substring(0, 4)
       ).then(response => {
-        this.chart = echarts.init(document.getElementById('moto'), 'light')
+        this.chart = echarts.init(document.getElementById('moto'))
         var motoOption = {
           // backgroundColor: '#1b1b1b',
           tooltip: {
@@ -56,9 +56,10 @@ export default {
                 lineStyle: {
                   // 属性lineStyle控制线条样式
                   // color: [[0.25, 'lime'], [0.5, '#1e90ff'], [1, '#ff4500']],
-                  width: 3,
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  color: [[0.2, 'lime'], [0.4, '#1e90ff'], [0.8, '#aa0'], [1, '#ff4500']],
+                  width: 2,
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               axisLabel: {
@@ -66,35 +67,35 @@ export default {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 0
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               axisTick: {
                 // 坐标轴小标记
-                length: 15, // 属性length控制线长
+                length: 10, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  // color: 'auto',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  color: 'auto',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               splitLine: {
                 // 分隔线
-                length: 25, // 属性length控制线长
+                length: 15, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
                   shadowBlur: 1
                 }
               },
               pointer: {
                 // 分隔线
-                // shadowColor: '#fff', // 默认透明
+                shadowColor: '#fff', // 默认透明
                 shadowBlur: 5
               },
               title: {
@@ -102,24 +103,24 @@ export default {
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
-                  fontSize: 20,
+                  fontSize: this.width / 30,
                   fontStyle: 'italic',
-                  color: titleColor,
-                  // shadowColor: '#fff', // 默认透明
+                  color: '#eee',
+                  shadowColor: '#fff', // 默认透明
                   shadowBlur: 2
                 }
               },
               detail: {
-                // backgroundColor: 'rgba(30,144,255,0.8)',
-                // borderWidth: 1,
-                // borderColor: '#fff',
-                // shadowColor: '#fff', // 默认透明
-                shadowBlur: 0,
+                backgroundColor: 'rgba(100,166,100,0.2)',
+                borderWidth: 0,
+                borderColor: '#fff',
+                shadowColor: '#fff', // 默认透明
+                shadowBlur: 5,
                 offsetCenter: [0, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder'
-                  // color: '#fff'
+                  fontWeight: 'bolder',
+                  color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['aqi']), name: 'AQI' }]
@@ -138,9 +139,10 @@ export default {
                 lineStyle: {
                   // 属性lineStyle控制线条样式
                   // color: [[0.29, 'lime'], [0.86, '#1e90ff'], [1, '#ff4500']],
+                  color: [[0.2, 'lime'], [0.4, '#1e90ff'], [0.8, '#aa0'], [1, '#ff4500']],
                   width: 2,
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 0
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               axisLabel: {
@@ -148,9 +150,9 @@ export default {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 0
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 },
                 formatter: function (v) {
                   switch (v + '') {
@@ -165,29 +167,29 @@ export default {
               },
               axisTick: {
                 // 坐标轴小标记
-                length: 12, // 属性length控制线长
+                length: 10, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  // color: 'auto',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 0
+                  color: 'auto',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               splitLine: {
                 // 分隔线
-                length: 20, // 属性length控制线长
+                length: 15, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 0
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 10
                 }
               },
               pointer: {
                 width: 5,
-                // shadowColor: '#fff', // 默认透明
-                shadowBlur: 0
+                shadowColor: '#fff', // 默认透明
+                shadowBlur: 5
               },
               title: {
                 offsetCenter: [0, '-10%'], // x, y，单位px
@@ -201,18 +203,18 @@ export default {
                 }
               },
               detail: {
-                // backgroundColor: 'rgba(30,144,255,0.8)',
-                // borderWidth: 1,
-                // borderColor: '#fff',
-                // shadowColor: '#fff', // 默认透明
-                shadowBlur: 0,
+                backgroundColor: 'rgba(100,166,100,0.2)',
+                borderWidth: 0,
+                borderColor: '#fff',
+                shadowColor: '#fff', // 默认透明
+                shadowBlur: 5,
                 width: 80,
                 height: 20,
                 offsetCenter: [20, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder'
-                  // color: '#fff'
+                  fontWeight: 'bolder',
+                  color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['pm25']), name: 'PM2.5' }]
@@ -232,28 +234,29 @@ export default {
                 lineStyle: {
                   // 属性lineStyle控制线条样式
                   // color: [[0.2, 'lime'], [0.8, '#1e90ff'], [1, '#ff4500']],
+                  color: [[0.2, 'lime'], [0.4, '#1e90ff'], [0.8, '#aa0'], [1, '#ff4500']],
                   width: 2,
                   // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  shadowBlur: 8
                 }
               },
               axisTick: {
                 // 坐标轴小标记
-                length: 12, // 属性length控制线长
+                length: 10, // 属性length控制线长
                 lineStyle: {
                   // 属性lineStyle控制线条样式
-                  // color: 'auto',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  color: 'auto',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 }
               },
               axisLabel: {
                 textStyle: {
                   // 属性lineStyle控制线条样式
                   fontWeight: 'bolder',
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
-                  shadowBlur: 3
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
+                  shadowBlur: 8
                 },
                 formatter: function (v) {
                   switch (v + '') {
@@ -272,14 +275,14 @@ export default {
                 lineStyle: {
                   // 属性lineStyle（详见lineStyle）控制线条样式
                   width: 3,
-                  // color: '#fff',
-                  // shadowColor: '#fff', // 默认透明
+                  color: '#fff',
+                  shadowColor: '#fff', // 默认透明
                   shadowBlur: 1
                 }
               },
               pointer: {
                 width: 2,
-                // shadowColor: '#fff', // 默认透明
+                shadowColor: '#fff', // 默认透明
                 shadowBlur: 2
               },
               title: {
@@ -289,21 +292,23 @@ export default {
                   fontWeight: 'bolder',
                   fontStyle: 'italic',
                   color: titleColor,
-                  // shadowColor: '#fff', // 默认透明
+                  shadowColor: '#fff', // 默认透明
                   shadowBlur: 2
                 }
               },
               detail: {
-                // borderColor: '#fff',
-                // shadowColor: '#fff', // 默认透明
-                shadowBlur: 0,
+                backgroundColor: 'rgba(100,166,100,0.2)',
+                borderWidth: 0,
+                borderColor: '#fff',
+                shadowColor: '#fff', // 默认透明
+                shadowBlur: 5,
                 width: 80,
                 height: 30,
                 offsetCenter: [-20, '50%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
-                  fontWeight: 'bolder'
-                  // color: '#fff'
+                  fontWeight: 'bolder',
+                  color: '#fff'
                 }
               },
               data: [{ value: parseInt(response.data['so2']), name: 'SO2' }]
@@ -319,7 +324,7 @@ export default {
 
 <style lang="scss" scoped>
 .moto {
-  width: 30vw;
-  height: 30vh;
+  width: 20vw;
+  height: 20vh;
 }
 </style>
