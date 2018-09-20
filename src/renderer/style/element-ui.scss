@@ -79,7 +79,7 @@ $--color-primary: $primary-color;
 }
 
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
-  background: mix($panel-background-color-hover,white,80%);
+  background: mix($panel-background-color-hover, white, 80%);
 }
 
 .el-table {
@@ -173,4 +173,20 @@ $--color-primary: $primary-color;
 .el-slider__stop {
   background-color: mix($primary-color-light, black, 80%);
   height: 0.35vw;
+}
+.el-tree {
+  background: transparent;
+}
+.el-tree-node__content {
+  &:hover {
+    background-color: mix($panel-background-color-hover, white, 90%);
+  }
+}
+.el-tree-node {
+  &.is-current {
+    background-color: mix($panel-background-color-hover, white, 90%);
+  }
+  &:focus>.el-tree-node__content {
+    background-color: mix($panel-background-color-hover, white, 80%);
+  }
 }
