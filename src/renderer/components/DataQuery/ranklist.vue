@@ -95,6 +95,7 @@ export default {
     height: 20px;
     text-align: center;
     padding-left: 5px;
+    color: mix(rgb(184, 115, 51), black, 50%);
     &.rank-1 {
       color: gold;
     }
