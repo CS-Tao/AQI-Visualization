@@ -170,3 +170,7 @@ $--color-primary: $primary-color;
   height: 0.35vw;
   margin: 0;
 }
+.el-slider__stop {
+  background-color: mix($primary-color-light, black, 80%);
+  height: 0.35vw;
+}

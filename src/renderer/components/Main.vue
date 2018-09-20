@@ -41,6 +41,7 @@
         class="slider"
         @change="sliderValueChanged()">
       </el-slider>
+      <span v-for="n in 5" :key="n" class="year-label" :class="'year-'+n">{{n + 2013}}</span>
       <div class="primary-panel right-in led-date">{{dateStrForShow}}</div>
     </div>
   </el-container>
@@ -191,6 +192,27 @@ $nav-top: 2.7vw;
     .slider {
       margin-left: 7.6vw;
       margin-top: 1.1vw - 0.175vw;
+    }
+    .year-label {
+      color: $primary-text-color-light;
+      font-size: 0.7vw;
+      margin-top: 1.1vw;
+      cursor: default;
+      &.year-1 {
+        margin-left: 7vw;
+      }
+      &.year-2 {
+        margin-left: 20vw;
+      }
+      &.year-3 {
+        margin-left: 20.3vw;
+      }
+      &.year-4 {
+        margin-left: 20.3vw;
+      }
+      &.year-5 {
+        margin-left: 20.1vw;
+      }
     }
     .pre-btn {
       position: fixed;
