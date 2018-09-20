@@ -41,3 +41,12 @@ script:
 branches:
   only:
   - master
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  local-dir: dist/web
+  github-token: $GH_TOKEN
+  on:
+    branch:
+      - master
