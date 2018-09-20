@@ -107,10 +107,6 @@ export default {
         this.mapView.graphics.removeMany(this.pointGraphics)
         this.pointGraphics = []
         for (var i = data.length - 1; i >= 0; i--) {
-          // let color = [255, 255, 255, 0.3]
-          let outlineWidth = 1
-          // let outlineColor = [255, 255, 255, 0.75]
-          let size = data[i].value[0] / 15
           let lng = data[i].position[0]
           let lat = data[i].position[1]
           let cityId = data[i].id
@@ -125,6 +121,10 @@ export default {
           let no2Value = data[i].value[4]
           let so2Value = data[i].value[5]
           let level = data[i].level
+          let color = this.getColorByLevel(level, 0.5)
+          let outlineColor = this.getColorByLevel(level, 0.9)
+          let outlineWidth = 1
+          let size = data[i].value[0] / 15
           let point = {
             type: 'point', // autocasts as new Point()
             longitude: lng,
@@ -133,11 +133,11 @@ export default {
           // Create a symbol for drawing the point
           let markerSymbol = {
             type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-            color: this.getColorByLevel(level, 0.5),
+            color: color,
             size: size,
             outline: {
               // autocasts as new SimpleLineSymbol()
-              color: this.getColorByLevel(level, 0.9),
+              color: outlineColor,
               width: outlineWidth
             }
           }
@@ -286,17 +286,19 @@ export default {
     getColorByLevel (level, opacity) {
       switch (level) {
         case '严重污染':
-          return `rgba(255, 0, 0, ${opacity})`
+          return [255, 0, 0, opacity]
         case '重度污染':
-          return `rgba(255, 127, 0, ${opacity})`
+          return [255, 127, 0, opacity]
         case '中度污染':
-          return `rgba(255, 255, 0, ${opacity})`
+          return [255, 255, 0, opacity]
         case '轻度污染':
-          return `rgba(153, 153, 0, ${opacity})`
+          return [153, 153, 0, opacity]
         case '良':
-          return `rgba(101, 167, 101, ${opacity})`
+          return [101, 167, 101, opacity]
         case '优':
-          return `rgba(51, 153, 51, ${opacity})`
+          return [51, 153, 51, opacity]
+        default:
+          return [255, 255, 255, opacity]
       }
     }
   }
