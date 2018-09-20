@@ -22,8 +22,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "webgis-practice",
-    "appId": "cc.cs-tao.webgis-practice",
+    "productName": "AQI-Visualization",
+    "appId": "cc.cs-tao.aqi-visualization",
     "directories": {
       "output": "build"
     },
