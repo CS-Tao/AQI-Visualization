@@ -36,9 +36,8 @@
 
 <script>
 import provinceApi from '@/api/province.api'
-import Map from '@/components/ProvincialStatic/JSONMap'
 import dashbord from '@/components/ProvincialStatic/Dashbord'
-import lines from '@/components/ProvincialStatic/Line'
+import lines from '@/components/ProvincialStatic/line'
 
 export default {
   data () {

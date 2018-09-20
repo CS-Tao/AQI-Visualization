@@ -19,14 +19,20 @@ function createWindow () {
   /**
    * Initial window options
    */
-  mainWindow = new BrowserWindow({
+  var windowOptions = {
     height: 563,
     width: 1000,
     useContentSize: true,
     webPreferences: {
       webSecurity: false
     }
-  })
+  }
+
+  if (process.platform === 'linux' || process.platform === 'win32') {
+    windowOptions.icon = require('path').join(__static, 'app.png')
+  }
+
+  mainWindow = new BrowserWindow()
 
   Menu.setApplicationMenu(null)
 

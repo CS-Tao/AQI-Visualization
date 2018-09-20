@@ -53,11 +53,6 @@
     },
     "linux": {
       "icon": "build/icons"
-    },
-    "publish": {
-      "provider": "github",
-      "owner": "CS-Tao <whucstao@qq.com>",
-      "repo": "CS-Tao/webgis-practice"
     }
   },
   "dependencies": {
