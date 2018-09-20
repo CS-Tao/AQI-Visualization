@@ -59,7 +59,7 @@ export default {
   props: {
     tableHeight: {
       type: String,
-      default: '75vh'
+      default: '55vh'
     }
   },
   computed: {
@@ -89,7 +89,7 @@ export default {
   // right: 15px;
   padding: 0;
   width: 370px;
-  height: 70vh;
+  height: 55vh;
   .rank-top {
     width: 20px;
     height: 20px;

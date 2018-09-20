@@ -63,9 +63,9 @@ export default {
             trigger: 'item'
           },
           legend: {
-            top: '15%',
+            top: '11%',
             left: 'center',
-            data: ['aqi', 'Top 10', '当前选中'],
+            data: ['Aqi', 'Aqi Top 10', '当前选中'],
             textStyle: {
               color: titleColor
             }
@@ -100,12 +100,12 @@ export default {
           },
           series: [
             {
-              name: 'aqi',
+              name: 'Aqi',
               type: 'scatter',
               coordinateSystem: 'calendar',
               data: response.data,
               symbolSize: function (val) {
-                return val[1] / 30
+                return val[1] / 24
               },
               itemStyle: {
                 normal: {
@@ -114,7 +114,7 @@ export default {
               }
             },
             {
-              name: 'Top 10',
+              name: 'Aqi Top 10',
               type: 'effectScatter',
               coordinateSystem: 'calendar',
               data: response.data
@@ -123,7 +123,7 @@ export default {
                 })
                 .slice(0, 10),
               symbolSize: function (val) {
-                return val[1] / 30
+                return val[1] / 24
               },
               showEffectOn: 'render',
               rippleEffect: {
@@ -145,17 +145,21 @@ export default {
               coordinateSystem: 'calendar',
               data: current,
               symbolSize: function (val) {
-                return val[1] / 30
+                return val[1] / 15
               },
               itemStyle: {
                 normal: {
-                  color: '#dd0000'
+                  color: '#5287c4'
                 }
               }
             }
           ]
         }
         this.chart.setOption(calenderOption)
+        this.chart.on('click', (params) => {
+          // 获得了城市名称
+          this.$store.dispatch('setSelectedDate', params.data[0])
+        })
       })
     }
   }
