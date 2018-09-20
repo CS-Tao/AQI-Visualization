@@ -1,5 +1,5 @@
 <template>
-  <div class="moto" id="moto"></div>
+  <div class="moto" id="moto" :style="{height:height,width:width}"></div>
 </template>
 
 <script>
@@ -18,6 +18,14 @@ export default {
     city: {
       type: Number,
       required: true
+    },
+    height: {
+      type: String,
+      default: '100%'
+    },
+    width: {
+      type: String,
+      default: '100%'
     }
   },
   components: {
@@ -99,7 +107,7 @@ export default {
                 shadowBlur: 5
               },
               title: {
-                offsetCenter: [0, '-10%'], // x, y，单位px
+                offsetCenter: [0, '-20%'], // x, y，单位px
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
@@ -308,7 +316,8 @@ export default {
                 textStyle: {
                   // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                   fontWeight: 'bolder',
-                  color: '#fff'
+                  color: '#fff',
+                  fontsize: this.height / 25
                 }
               },
               data: [{ value: parseInt(response.data['so2']), name: 'SO2' }]

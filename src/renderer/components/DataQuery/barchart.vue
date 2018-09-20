@@ -10,6 +10,9 @@
     <div class="mo">
       <motochart :date="date" :city="city" v-if="!isClick"></motochart>
     </div>
+    <div class="ranklistquery">
+      <ranklist @row-clicked="rankclick"></ranklist>
+    </div>
   </div>
 </template>
 
@@ -20,6 +23,7 @@ import avgnumber from '@/components/DataQuery/avgnumber'
 import calenchart from '@/components/DataQuery/calenchart'
 import motochart from '@/components/DataQuery/motochart'
 import resize from '@/components/Utils/ChartResize'
+import ranklist from '@/components/DataQuery/ranklist'
 const titleColor = '#f3f4f5'
 export default {
   mixins: [resize],
@@ -41,7 +45,8 @@ export default {
   components: {
     avgnumber,
     calenchart,
-    motochart
+    motochart,
+    ranklist
   },
   watch: {
     date () {
@@ -65,7 +70,7 @@ export default {
           citynamearr = response.data['city']
           var option = {
             title: {
-              text: datestr + '污染情况',
+              text: datestr + ' 全国污染最严重的 ' + response.data['city'].length + ' 个城市',
               x: 'center',
               textStyle: {
                 color: titleColor
@@ -83,7 +88,7 @@ export default {
             },
             legend: {
               data: ['AQI', 'PM2.5', 'SO2'],
-              y: '15%',
+              y: '13%',
               textStyle: {
                 color: titleColor
               }
@@ -100,12 +105,14 @@ export default {
               axisLine: {
                 lineStyle: {
                   color: titleColor
-                }
+                },
+                grid: response.data['city'].length
               },
               axisLabel: {
                 textStyle: {
                   color: titleColor
-                }
+                },
+                interval: 0
               }
             },
             yAxis: {
@@ -163,6 +170,14 @@ export default {
           message: err.message
         })
       })
+    },
+    rankclick (data) {
+      this.$store.dispatch('setMapCenterLat', data.lat)
+      this.$store.dispatch('setMapCenterLng', data.lng)
+      this.cityname = data.cityName
+      this.city = data.cityId
+      this.isClick = false
+      this.$triggerResize()
     }
   }
 }
@@ -171,16 +186,16 @@ export default {
 <style lang="scss" scoped>
 .barchart{
   height: 25vh;
-  width:60vw;
+  width:82vw;
 }
 .ll{
   height: 25vh;
   width:30vw;
 }
 .ave{
-  top:80vh;
-  left:62vw;
-  width: 10vw;
+  top:73vh;
+  left:81vw;
+  width: 20vw;
   height: 15vh;
   position: fixed;
 }
@@ -192,10 +207,16 @@ export default {
   position: fixed;
 }
 .mo{
-  top:70vh;
+  top:69vh;
   left:80.6vw;
   width: 20vw;
   height: 20vh;
   position: fixed;
+}
+.ranklistquery{
+  position: fixed;
+  top: calc(100/1920*111vw + 20px);
+  right: 15px;
+  overflow: hidden;
 }
 </style>

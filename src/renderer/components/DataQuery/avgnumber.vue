@@ -1,5 +1,8 @@
 <template>
+  <div>
+    <div class="label">Aqi 峰值</div>
   <div class="average" id="average"></div>
+  </div>
 </template>
 
 <script>
@@ -30,14 +33,23 @@ export default {
  font-family:'digital-clock-font';
  src: url('../../style/font/digital.ttf');
 }
+.label{
+  margin-top: 8vh;
+  font-size: 16px;
+  color: #00a1e1;
+  width: 5vw;
+  height: 10vh;
+  float:left;
+}
 .average {
-  width: 15vw;
+  width: 12vw;
   height: 10vh;
   font-family:'digital-clock-font';
-  font-size: 100px;
+  font-size: 80px;
   color: #00a1e1;
   text-align: center;
   line-height: 15vh;
   position: relative;
+  float:left;
 }
 </style>
