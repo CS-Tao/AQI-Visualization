@@ -60,7 +60,11 @@ export default {
             }
           },
           tooltip: {
-            trigger: 'item'
+            trigger: 'item',
+            backgroundColor: 'rgba(7, 39, 77, 0.3)',
+            borderWidth: 1,
+            borderColor: '#5287c4',
+            padding: 10
           },
           legend: {
             top: '11%',

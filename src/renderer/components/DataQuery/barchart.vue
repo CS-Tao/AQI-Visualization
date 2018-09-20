@@ -7,8 +7,8 @@
     <div v-if="!isClick" class="calen">
       <calenchart :date="date" :cityname="cityname" :city="city"></calenchart>
     </div>
-    <div class="mo">
-      <motochart :date="date" :city="city" v-if="!isClick"></motochart>
+    <div v-if="!isClick" class="mo">
+      <motochart :date="date" :city="city"></motochart>
     </div>
     <div class="ranklistquery">
       <ranklist @row-clicked="rankclick"></ranklist>
@@ -78,6 +78,10 @@ export default {
             },
             tooltip: {
               trigger: 'axis',
+              backgroundColor: 'rgba(7, 39, 77, 0.3)',
+              borderWidth: 1,
+              borderColor: '#5287c4',
+              padding: 10,
               axisPointer: {
               // 坐标轴指示器，坐标轴触发有效
                 type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -184,6 +188,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/variables.scss';
+
 .barchart{
   height: 25vh;
   width:82vw;
@@ -193,11 +199,10 @@ export default {
   width:30vw;
 }
 .ave{
-  top:73vh;
-  left:81vw;
-  width: 20vw;
-  height: 15vh;
+  bottom: $layout-footer-height + 4.85vw;
+  right:calc(15px + 2.7vw);
   position: fixed;
+  cursor: default !important;
 }
 .calen{
   top:70vh;

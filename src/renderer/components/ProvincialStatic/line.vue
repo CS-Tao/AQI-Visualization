@@ -88,6 +88,13 @@ export default {
           this.temp.push(m)
         }
       }
+      let avery = 0
+      for (let i = 0; i < this.temp.length; i++) {
+        avery += this.temp[i].data[0]
+      }
+      avery = avery / this.temp.length
+      var ss = [avery, this.xaxis[0]]
+      this.$emit('sendavery', ss)
     },
     initChart () {
       // console.log('temp.data', this.temp.data)
@@ -97,7 +104,7 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id), 'light')
       var option = {
         title: {
-          text: this.xaxis[0] + '-' + this.xaxis[this.xaxis.length - 1] + this.province + '各地方AQI年变化折线图',
+          text: this.xaxis[0] + ' - ' + this.xaxis[this.xaxis.length - 1] + ' 年' + this.province + '各地 AQI 年变化折线图',
           left: 'center',
           textStyle: {
             color: lineColor

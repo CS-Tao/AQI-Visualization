@@ -1,7 +1,7 @@
 <template>
   <!-- <json-map class="container" :json-data="jsonData"/> -->
   <div >
-    <el-select class="select" v-model="selectId" filterable @change="getProvinceData()" placeholder="请选择">
+    <el-select class="select" v-model="selectId" filterable @change="getProvinceData()" placeholder="请选择省份">
       <el-option
         v-for="item in provinceNames"
         :key="item.id"
@@ -25,10 +25,10 @@
     </div>
     <div v-if="showData.length!==0">
       <div class="dashbord">
-        <dashbord v-bind:num="message"></dashbord>
+        <dashbord v-bind:num="message" :province="selectName"></dashbord>
       </div>
       <div class="lines">
-        <lines style="left:0;bottom:0;" v-on:sendavery="getavery" :xaxis="ProvinceData.xaxis" :sseries="showData"> </lines>
+        <lines style="left:0;bottom:0;" v-on:sendavery="getavery" :province="selectName" :xaxis="ProvinceData.xaxis" :sseries="showData"> </lines>
       </div>
     </div>
   </div>
@@ -66,10 +66,12 @@ export default {
       if (this.ProvinceData.datalist) {
         var childrenNodes = []
         for (let i = 0; i < this.ProvinceData.datalist.length; i++) {
-          childrenNodes.push({
-            id: i + 1,
-            label: this.ProvinceData.datalist[i].name
-          })
+          if (this.ProvinceData.datalist[i].data.length !== 0) {
+            childrenNodes.push({
+              id: i + 1,
+              label: this.ProvinceData.datalist[i].name
+            })
+          }
         }
         return [{
           id: 0,

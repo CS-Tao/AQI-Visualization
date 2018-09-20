@@ -111,6 +111,7 @@ export default {
     box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset;
     padding: 3px 5px;
     border-radius: 3px;
+    font-size: 13px;
     &.level-1 {
       color: red;
     }

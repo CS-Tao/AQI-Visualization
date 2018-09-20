@@ -4,11 +4,11 @@
       <img src="@/assets/header.png" class="header-background">
       <div class="nav-btn-group">
         <div class="nav-btn-left-group">
-          <button class="nav-btn nav-btn-left-1" :class="{'nav-btn-active': this.$route.name === 'data-query'}" @click="btnClicked('data-query')">每日排行</button>
-          <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'provincial-static'}" @click="btnClicked('provincial-static')">省份统计</button>
+          <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-query'}" @click="btnClicked('data-query')">每日排行</button>
         </div>
         <div class="nav-btn-right-group">
-          <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-dist'}" @click="btnClicked('data-dist')">污染分布</button>
+          <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'provincial-static'}" @click="btnClicked('provincial-static')">省份统计</button>
+          <!-- <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-dist'}" @click="btnClicked('data-dist')">污染分布</button> -->
           <!-- <el-switch
            class="switch-3d"
             v-if="this.$route.name === 'data-dist'"

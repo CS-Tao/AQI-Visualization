@@ -39,7 +39,7 @@ export default {
     },
     ttitle: {
       type: String,
-      default: '年平均AQI'
+      default: '年平均指数'
     }
   },
 
@@ -77,7 +77,7 @@ export default {
       this.chart = echarts.init(document.getElementById(this.id))
       this.chart.setOption({
         tooltip: {
-          formatter: this.province + this.num[1] + '{b} : {c}'
+          formatter: this.province + this.num[1] + '{b} AQI: {c}'
         },
         series: [
           {

@@ -54,6 +54,7 @@ $--color-primary: $primary-color;
   background: rgba(0,0,0,0);
   border-radius: 0;
   border: 0;
+  color: $primary-text-color-middle;
 }
 
 .el-select-dropdown {
@@ -189,4 +190,7 @@ $--color-primary: $primary-color;
   &:focus>.el-tree-node__content {
     background-color: mix($panel-background-color-hover, white, 80%);
   }
+}
+.el-tree-node__label {
+  color: $primary-text-color-middle;
 }

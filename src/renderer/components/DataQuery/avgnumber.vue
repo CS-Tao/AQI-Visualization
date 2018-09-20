@@ -29,26 +29,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/variables.scss';
+
 @font-face{
  font-family:'digital-clock-font';
  src: url('../../style/font/digital.ttf');
 }
+
 .label{
-  margin-top: 8vh;
-  font-size: 16px;
+  position: fixed;
+  bottom: $layout-footer-height + 1.5vw;
+  right:calc(15px + 10.5vw);
+  font-size: 1vw;
   color: #00a1e1;
-  width: 5vw;
   height: 10vh;
   float:left;
 }
 .average {
-  width: 12vw;
-  height: 10vh;
   font-family:'digital-clock-font';
-  font-size: 80px;
+  font-size: 5vw;
   color: #00a1e1;
   text-align: center;
-  line-height: 15vh;
   position: relative;
   float:left;
 }
