@@ -86,6 +86,7 @@ export default {
             mapview3dApi.getAllDataInDay(this.selectedDateStr).then(respose => {
               if (respose.status === 200) {
                 this.addPoints(respose.data)
+                this.$store.dispatch('setDailyData', respose.data)
               } else {
                 throw new Error('数据加载失败')
               }
@@ -105,10 +106,10 @@ export default {
         this.$store.dispatch('setMainViewLoadingStatus', true)
         this.mapView.graphics.removeMany(this.pointGraphics)
         this.pointGraphics = []
-        for (var i = 0; i < data.length; i++) {
-          let color = [255, 255, 255, 0.3]
-          let outlineWidth = 0.5
-          let outlineColor = [255, 255, 255, 0.75]
+        for (var i = data.length - 1; i >= 0; i--) {
+          // let color = [255, 255, 255, 0.3]
+          let outlineWidth = 1
+          // let outlineColor = [255, 255, 255, 0.75]
           let size = data[i].value[0] / 15
           let lng = data[i].position[0]
           let lat = data[i].position[1]
@@ -132,11 +133,11 @@ export default {
           // Create a symbol for drawing the point
           let markerSymbol = {
             type: 'simple-marker', // autocasts as new SimpleMarkerSymbol()
-            color: color,
+            color: this.getColorByLevel(level, 0.5),
             size: size,
             outline: {
               // autocasts as new SimpleLineSymbol()
-              color: outlineColor,
+              color: this.getColorByLevel(level, 0.9),
               width: outlineWidth
             }
           }
@@ -221,7 +222,12 @@ export default {
     reAddPoints () {
       if (this.selectedDateStr) {
         mapview3dApi.getAllDataInDay(this.selectedDateStr).then(respose => {
-          if (respose.status === 200) { this.addPoints(respose.data) } else { throw new Error('数据加载失败') }
+          if (respose.status === 200) {
+            this.addPoints(respose.data)
+            this.$store.dispatch('setDailyData', respose.data)
+          } else {
+            throw new Error('数据加载失败')
+          }
         }).catch(err => {
           this.$message({
             type: 'error',
@@ -236,11 +242,11 @@ export default {
         loadModules(['esri/Graphic', 'dojo/domReady!']).then(([Graphic]) => {
           let markerSymbol = {
             type: 'simple-marker',
-            color: '#a00',
-            size: 10,
+            color: '#5287c4',
+            size: 14,
             outline: {
               color: 'white',
-              width: 1
+              width: 2
             }
           }
           let point = {
@@ -275,6 +281,22 @@ export default {
       this.$store.dispatch('setMapCenterLng', null)
       if (this.centerPointGraphic && this.mapView.graphics.includes(this.centerPointGraphic)) {
         this.mapView.graphics.remove(this.centerPointGraphic)
+      }
+    },
+    getColorByLevel (level, opacity) {
+      switch (level) {
+        case '严重污染':
+          return `rgba(255, 0, 0, ${opacity})`
+        case '重度污染':
+          return `rgba(255, 127, 0, ${opacity})`
+        case '中度污染':
+          return `rgba(255, 255, 0, ${opacity})`
+        case '轻度污染':
+          return `rgba(153, 153, 0, ${opacity})`
+        case '良':
+          return `rgba(101, 167, 101, ${opacity})`
+        case '优':
+          return `rgba(51, 153, 51, ${opacity})`
       }
     }
   }

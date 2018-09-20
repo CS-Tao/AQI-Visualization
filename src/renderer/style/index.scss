@@ -21,6 +21,7 @@ body {
     &-thumb {
       background-color: $primary-text-color-light;
       border-radius: 2px;
+      cursor: pointer;
     }
   }
   ::-webkit-input-placeholder {

@@ -129,6 +129,3 @@
 .esri-popup--is-docked-bottom-right {
   bottom: $layout-footer-height;
 }
-[class*="esri-popup--is-docked-top-"] .esri-popup__feature-buttons, [class*="esri-popup--aligned-bottom-"] .esri-popup__feature-buttons {
-  background: mix($panel-background-color-hover, white, 95%);
-}

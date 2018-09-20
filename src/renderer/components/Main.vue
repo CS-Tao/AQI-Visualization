@@ -9,19 +9,19 @@
         </div>
         <div class="nav-btn-right-group">
           <button class="nav-btn" :class="{'nav-btn-active': this.$route.name === 'data-dist'}" @click="btnClicked('data-dist')">污染分布</button>
-          <el-switch
+          <!-- <el-switch
            class="switch-3d"
             v-if="this.$route.name === 'data-dist'"
             active-color="green"
             inactive-color="red"
             v-model="showIn3d"
             active-text="3D 展示">
-          </el-switch>
+          </el-switch> -->
         </div>
       </div>
     </div>
-    <arcgis-scene v-if="showIn3d" class="map-container flex-item-fill"/>
-    <arcgis-map v-else class="map-container flex-item-fill"/>
+    <!-- <arcgis-scene v-if="showIn3d" class="map-container flex-item-fill"/> -->
+    <arcgis-map class="map-container flex-item-fill"/>
     <div class="main">
       <router-view></router-view>
     </div>
@@ -57,7 +57,7 @@ const dateSpan = 365 * 4
 export default {
   data () {
     return {
-      showIn3d: false,
+      // showIn3d: false,
       sliderValue: 0,
       sliderValueDelay: 0,
       pause: false,
@@ -92,7 +92,7 @@ export default {
         this.$router.push({
           name: 'main'
         })
-        this.showIn3d = false
+        // this.showIn3d = false
       }
     },
     pauseBtnClicked () {
@@ -102,11 +102,14 @@ export default {
           this.autoPlayTimerHandler = null
         }
       } else {
+        this.sliderValue += 1
+        if (this.sliderValue > dateSpan) { this.sliderValue %= dateSpan }
+        this.sliderValueChanged()
         this.autoPlayTimerHandler = window.setInterval(() => {
           this.sliderValue += 1
           if (this.sliderValue > dateSpan) { this.sliderValue %= dateSpan }
           this.sliderValueChanged()
-        }, 2000)
+        }, 3000)
       }
       this.pause = !this.pause
     },
@@ -187,7 +190,7 @@ $nav-top: 2.7vw;
     box-shadow: 0 -1px $box-shadow-size #000;
     .slider {
       margin-left: 7.6vw;
-      margin-top: .1vw;
+      margin-top: 1.1vw - 0.175vw;
     }
     .pre-btn {
       position: fixed;
@@ -257,9 +260,9 @@ $nav-top: 2.7vw;
     color: $primary-text-color-light;
   }
 }
-.switch-3d {
-  position: fixed;
-  left: $btn-width + 1.5vw + 62vw;
-  top: $nav-top + 1.1vw;
-}
+// .switch-3d {
+//   position: fixed;
+//   left: $btn-width + 1.5vw + 62vw;
+//   top: $nav-top + 1.1vw;
+// }
 </style>
