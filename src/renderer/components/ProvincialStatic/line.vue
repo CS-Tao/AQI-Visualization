@@ -45,6 +45,10 @@ export default {
           }
         ]
       }
+    },
+    province: {
+      type: String,
+      default: ''
     }
   },
 
@@ -52,12 +56,19 @@ export default {
     return {
       chart: null,
       temp: [],
-      mposition: -1
+      mposition: -1,
+      msize: window.innerWidth
     }
   },
 
   mounted () {
     this.initChart()
+    window.onresize = () => {
+      if (window.innerWidth !== this.msize) {
+        this.msize = window.innerWidth
+        this.initChart()
+      }
+    }
   },
 
   beforeDestroy () {
@@ -80,11 +91,13 @@ export default {
     },
     initChart () {
       // console.log('temp.data', this.temp.data)
+      // var ssize = window.innerWidth
+      // this.msize = window.innerWidth
       this.datafix()
       this.chart = echarts.init(document.getElementById(this.id), 'light')
       var option = {
         title: {
-          text: ' ',
+          text: this.xaxis[0] + '-' + this.xaxis[this.xaxis.length - 1] + this.province + '各地方AQI年变化折线图',
           left: 'center',
           textStyle: {
             color: lineColor
@@ -92,15 +105,15 @@ export default {
         },
         tooltip: {
           trigger: 'axis',
-          backgroundColor: 'rgba(245, 245, 245, 0.6)',
+          backgroundColor: 'rgba(7, 39, 77, 0.3)',
           borderWidth: 1,
-          borderColor: '#000',
+          borderColor: '#5287c4',
           padding: 10,
           textStyle: {
-            color: '#000'
+            color: lineColor
           },
           position: (pos, params, el, elRect, size) => {
-            // console.log('params:', params[0].dataIndex)
+            // console.log('params:', params)
             if (this.mposition !== params[0].dataIndex) {
               this.mposition = params[0].dataIndex
               let avery = 0
@@ -115,10 +128,11 @@ export default {
           extraCssText: 'width: 170px'
         },
         legend: {
+          orient: 'vertical',
+          align: 'right',
           type: 'scroll',
-          left: '10%',
-          right: '10%',
-          top: 0,
+          right: '0%',
+          top: '35',
           data: this.sseries.name,
           textStyle: {
             color: lineColor
@@ -127,10 +141,10 @@ export default {
         grid: {
           bordercolor: 'rgba(0,0,0,0)',
           borderwide: 1,
-          top: '30',
+          top: '40',
           bottom: '22',
           left: '48',
-          right: '20'
+          right: '80'
         },
         xAxis: {
           ype: 'category',
@@ -172,7 +186,7 @@ export default {
               color: '#999'
             }
           },
-          splitNumber: this.height / 20,
+          splitNumber: this.msize / 300,
           axisLine: {
             lineStyle: {
               color: lineColor

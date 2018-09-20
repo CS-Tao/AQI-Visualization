@@ -35,18 +35,29 @@ export default {
     },
     province: {
       type: String,
-      default: '2014'
+      default: ''
+    },
+    ttitle: {
+      type: String,
+      default: '年平均AQI'
     }
   },
 
   data () {
     return {
-      chart: null
+      chart: null,
+      chartdata: [],
+      msize: window.innerWidth
     }
   },
 
   mounted () {
     this.initChart()
+    window.onresize = () => {
+      if (window.innerWidth !== this.msize) {
+        this.msize = window.innerWidth
+      }
+    }
   },
 
   beforeDestroy () {
@@ -59,23 +70,25 @@ export default {
 
   methods: {
     initChart () {
+      var ssize = window.innerWidth
       var m1 = this.num[0].toFixed(2)
-      var m2 = this.num[1] + ' 年平均污染'
+      var m2 = this.num[1] + this.province + this.ttitle
+      this.chartdata = [{value: m1, name: this.ttitle}]
       this.chart = echarts.init(document.getElementById(this.id))
       this.chart.setOption({
         tooltip: {
-          formatter: '{a} <br/>{b} : {c}%'
+          formatter: this.province + this.num[1] + '{b} : {c}'
         },
         series: [
           {
-            name: '0.0',
+            name: '',
             type: 'gauge',
             min: 0,
             max: 250,
             splitNumber: 5,
             radius: '95%',
             textStyle: {
-              fontSize: 15
+              fontSize: ssize / 100
             },
             axisLine: { // 坐标轴线
               lineStyle: { // 属性lineStyle控制线条样式
@@ -90,11 +103,12 @@ export default {
                 fontWeight: 'bolder',
                 color: '#fff',
                 shadowColor: '#fff', // 默认透明
-                shadowBlur: 8
+                shadowBlur: 8,
+                fontSize: ssize / 150
               }
             },
             axisTick: { // 坐标轴小标记
-              length: 10, // 属性length控制线长
+              length: ssize / 150, // 属性length控制线长
               lineStyle: { // 属性lineStyle控制线条样式
                 color: 'auto',
                 shadowColor: '#fff', // 默认透明
@@ -102,7 +116,7 @@ export default {
               }
             },
             splitLine: { // 分隔线
-              length: 15, // 属性length控制线长
+              length: ssize / 100, // 属性length控制线长
               lineStyle: { // 属性lineStyle（详见lineStyle）控制线条样式
                 width: 3,
                 color: '#fff',
@@ -117,7 +131,7 @@ export default {
             title: {
               textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
-                fontSize: this.width / 30,
+                fontSize: ssize / 120,
                 fontStyle: 'italic',
                 color: '#eee',
                 shadowColor: '#fff', // 默认透明
@@ -135,19 +149,23 @@ export default {
               textStyle: { // 其余属性默认使用全局文本样式，详见TEXTSTYLE
                 fontWeight: 'bolder',
                 color: '#fff',
-                fontSize: this.height / 25
+                fontSize: ssize / 120
               }
             },
             // detail: {formatter: '{value}%'},
-            data: [{value: m1, name: m2}]
+            data: this.chartdata
           }
         ]
       })
+      // this.$triggerResize()
     }
   },
 
   watch: {
     num (newData, oldData) {
+      this.initChart()
+    },
+    msize () {
       this.initChart()
     }
   }
