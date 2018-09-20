@@ -81,3 +81,92 @@ $--color-primary: $primary-color;
 .el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
   background: mix($panel-background-color-hover,white,80%);
 }
+
+.el-table {
+  color: $primary-text-color!important;
+  background-color: transparent!important;
+  font-size: 14px;
+  .el-table__body-wrapper {
+    .el-table__body {
+      tr.current-row>td {
+        background-color: $panel-background-color;
+      }
+    }
+  }
+  thead {
+    color: $primary-text-color-low!important;
+    font-family: 'Times New Roman'!important;
+    font-size: $text-size-large - 2;
+  }
+  tr {
+    background-color: transparent!important;
+    cursor: pointer;
+  }
+  tr:hover>td {
+    background: mix($panel-background-color-hover,white,80%)!important;
+    color: $primary-text-color-light;
+  }
+  th.is-leaf {
+    border-bottom: 1px solid $primary-text-color;
+  }
+}
+.el-table td, .el-table th.is-leaf {
+  border-bottom: 1px solid $primary-text-color;
+}
+.el-table th, .el-table tr {
+  background-color: $primary-text-color-light;
+}
+.el-table__body tr.el-table__row.hover-row > td{
+  background-color: inherit;
+}
+.el-table--border, .el-table--group {
+  border: 1px solid $primary-text-color!important;
+  td {
+    border-bottom: 1px solid $primary-text-color!important;
+    border-right: 1px solid $primary-text-color!important;
+  }
+  th {
+    border-bottom: 1px solid $primary-text-color!important;
+    border-right:  1px solid $primary-text-color!important;
+  }
+}
+.el-table--border::after, .el-table--group::after, .el-table::before {
+  background-color: $panel-background-color;
+}
+.el-table_1_column_2, .el-table_1_column_1 {
+  padding-top: 10px!important;
+  div {
+    line-height: 30px!important;
+  }
+} 
+.el-table, .el-table__expanded-cell {
+  background-color: $panel-background-color;
+}
+.el-table--scrollable-x .el-table__body-wrapper {
+  overflow-x: hidden;
+}
+.el-table__header-wrapper {
+  background-color: $panel-background-color;
+}
+.el-table th, .el-table tr {
+  background-color: transparent !important;
+}
+.el-table th>.cell {
+  cursor: default;
+  color: $primary-text-color-light;
+}
+
+.el-slider__button {
+  border: 3px solid $panel-border-color;
+  background-color: $primary-text-color-light;
+  width: 0.8vw;
+  height: 0.8vw;
+}
+.el-slider__bar {
+  background-color: mix($primary-color-light, white, 90%);
+  height: 0.35vw;
+}
+.el-slider__runway {
+  height: 0.35vw;
+  margin: 0;
+}

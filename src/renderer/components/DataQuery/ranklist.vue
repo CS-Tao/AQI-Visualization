@@ -2,7 +2,7 @@
   <div class="primary-panel table-container">
     <el-table
       :data="dailyData"
-      height="70vh"
+      :height="tableHeight"
       @row-click="rowClicked">
       <el-table-column label="排名">
         <template slot-scope="scope">
@@ -56,6 +56,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    tableHeight: {
+      type: String,
+      default: '75vh'
+    }
+  },
   computed: {
     ...mapGetters([
       'dailyData'
@@ -78,64 +84,49 @@ export default {
 @import '@/style/variables.scss';
 
 .table-container {
-  position: fixed;
+  // position: fixed;
+  // top: calc(100/1920*111vw + 20px);
+  // right: 15px;
   padding: 0;
-  top: calc(100/1920*111vw + 20px);
-  right: 15px;
   width: 370px;
   height: 70vh;
-  right: 15px;
   .rank-top {
     width: 20px;
     height: 20px;
     text-align: center;
     padding-left: 5px;
-    color: mix(rgb(184, 115, 51), black, 50%);
     &.rank-1 {
-      fill: gold;
+      color: gold;
     }
     &.rank-2 {
-      fill: silver;
+      color: silver;
     }
     &.rank-3 {
-      fill: rgb(184, 115, 51);
+      color: rgb(184, 115, 51);
     }
   }
   .level {
+    border: 1px solid $panel-border-color;
+    box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset;
     padding: 3px 5px;
     border-radius: 3px;
     &.level-1 {
       color: red;
-      border: 1px solid red;
-      box-shadow: 0px 0px 10px 2px rgba(red, 0.2) inset;
     }
     &.level-2 {
       color: orange;
-      border: 1px solid orange;
-      box-shadow: 0px 0px 10px 2px rgba(orange, 0.2) inset;
     }
     &.level-3 {
       color: yellow;
-      border: 1px solid yellow;
-      box-shadow: 0px 0px 10px 2px rgba(yellow, 0.2) inset;
     }
     &.level-4 {
-      $yellow-2: mix(yellow, black, 60%);
-      color: $yellow-2;
-      border: 1px solid $yellow-2;
-      box-shadow: 0px 0px 10px 2px rgba($yellow-2, 0.2) inset;
+      color: lightyellow;
     }
     &.level-5 {
-      $green-2: mix(lightgreen, black, 70%);
-      color: $green-2;
-      border: 1px solid $green-2;
-      box-shadow: 0px 0px 10px 2px rgba($green-2, 0.2) inset;
+      color: lightgreen;
     }
     &.level-6 {
-      $green-1: mix(green, white, 80%);
-      color: $green-1;
-      border: 1px solid $green-1;
-      box-shadow: 0px 0px 10px 2px rgba($green-1, 0.2) inset;
+      color: green;
     }
   }
 }

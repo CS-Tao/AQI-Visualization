@@ -3,7 +3,8 @@ const app = {
     mapConfig: {
       centerLat: 0,
       centerLng: 0,
-      selectedDateStr: '2017-05-09'
+      selectedDateStr: '2017-05-09',
+      dailyData: null
     },
     maskMainView: false
   },
@@ -19,6 +20,9 @@ const app = {
     },
     SET_MAIN_VIEW_LOADING_STATUS: (state, isloading) => {
       state.maskMainView = isloading
+    },
+    SET_DAILY_DATA: (state, data) => {
+      state.mapConfig.dailyData = data
     }
   },
   actions: {
@@ -33,6 +37,9 @@ const app = {
     },
     setMainViewLoadingStatus ({ commit }, isloading) {
       commit('SET_MAIN_VIEW_LOADING_STATUS', isloading)
+    },
+    setDailyData ({ commit }, data) {
+      commit('SET_DAILY_DATA', data)
     }
   }
 }
