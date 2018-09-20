@@ -107,28 +107,41 @@ export default {
     }
   }
   .level {
-    border: 1px solid $panel-border-color;
-    box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset;
     padding: 3px 5px;
     border-radius: 3px;
     font-size: 13px;
     &.level-1 {
       color: red;
+      border: 1px solid red;
+      box-shadow: 0px 0px 10px 2px rgba(red, 0.2) inset;
     }
     &.level-2 {
       color: orange;
+      border: 1px solid orange;
+      box-shadow: 0px 0px 10px 2px rgba(orange, 0.2) inset;
     }
     &.level-3 {
       color: yellow;
+      border: 1px solid yellow;
+      box-shadow: 0px 0px 10px 2px rgba(yellow, 0.2) inset;
     }
     &.level-4 {
-      color: lightyellow;
+      $yellow-2: mix(yellow, black, 60%);
+      color: $yellow-2;
+      border: 1px solid $yellow-2;
+      box-shadow: 0px 0px 10px 2px rgba($yellow-2, 0.2) inset;
     }
     &.level-5 {
-      color: lightgreen;
+      $green-2: mix(lightgreen, black, 70%);
+      color: $green-2;
+      border: 1px solid $green-2;
+      box-shadow: 0px 0px 10px 2px rgba($green-2, 0.2) inset;
     }
     &.level-6 {
-      color: green;
+      $green-1: mix(green, white, 80%);
+      color: $green-1;
+      border: 1px solid $green-1;
+      box-shadow: 0px 0px 10px 2px rgba($green-1, 0.2) inset;
     }
   }
 }
