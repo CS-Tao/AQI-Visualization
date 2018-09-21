@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![chat](https://img.shields.io/badge/chat-github%20issues-blue.svg)](https://github.com/CS-Tao/AQI-Visualization/issues)
 
-# webgis-practice
+# AQI-Visualization
 
 > 空气污染可视化系统
 
