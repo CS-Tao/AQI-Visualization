@@ -3,6 +3,11 @@
 @import './element-ui.scss';
 @import './arcgis.scss';
 
+@font-face {
+  font-family:'digital-clock-font';
+  src: './font/digital.ttf';
+}
+
 body {
 	margin: 0;
   user-select: none;
@@ -11,28 +16,43 @@ body {
   -ms-user-select: none;
   ::-webkit-scrollbar {
     width: 5px;
-    background-color: mix($panel-border-color, #ccc, 90%);
+    background-color: mix($panel-border-color, $primary-text-color-light, 90%);
     border-radius: 2px;
     &-thumb {
-      background-color: #ccf;
+      background-color: $primary-text-color-light;
       border-radius: 2px;
+      cursor: pointer;
     }
   }
   ::-webkit-input-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   :-moz-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   ::-moz-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
   :-ms-input-placeholder {
-    color: #ccc;
+    color: $primary-text-color-light;
   }
 }
-input, button, div {
+input, button, div, canvas {
   outline: 0 none !important;
   // bblr: expression(this.onFocus=this.blur());
   outline-style: none;
+}
+.primary-panel {
+  background: $panel-background-color;
+  border: 1px solid $panel-border-color;
+  color: $primary-text-color;
+  padding: 20px;
+  font-size: 14px;
+  box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset, 0px 0px 10px 2px rgba(#ffffff, 0.05);
+  transition: left 0.45s cubic-bezier(.55, 0, .1, 1);
+  cursor: default;
+}
+.primary-btn {
+  // background: $panel-background-color;
+  // border: 1px solid $panel-border-color;
 }

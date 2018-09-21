@@ -2,7 +2,7 @@
   <div class="primary-panel table-container">
     <el-table
       :data="dailyData"
-      height="70vh"
+      :height="tableHeight"
       @row-click="rowClicked">
       <el-table-column label="排名">
         <template slot-scope="scope">
@@ -56,6 +56,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    tableHeight: {
+      type: String,
+      default: '55vh'
+    }
+  },
   computed: {
     ...mapGetters([
       'dailyData'
@@ -78,13 +84,12 @@ export default {
 @import '@/style/variables.scss';
 
 .table-container {
-  position: fixed;
+  // position: fixed;
+  // top: calc(100/1920*111vw + 20px);
+  // right: 15px;
   padding: 0;
-  top: calc(100/1920*111vw + 20px);
-  right: 15px;
   width: 370px;
-  height: 70vh;
-  right: 15px;
+  height: 55vh;
   .rank-top {
     width: 20px;
     height: 20px;
@@ -92,18 +97,19 @@ export default {
     padding-left: 5px;
     color: mix(rgb(184, 115, 51), black, 50%);
     &.rank-1 {
-      fill: gold;
+      color: gold;
     }
     &.rank-2 {
-      fill: silver;
+      color: silver;
     }
     &.rank-3 {
-      fill: rgb(184, 115, 51);
+      color: rgb(184, 115, 51);
     }
   }
   .level {
     padding: 3px 5px;
     border-radius: 3px;
+    font-size: 13px;
     &.level-1 {
       color: red;
       border: 1px solid red;

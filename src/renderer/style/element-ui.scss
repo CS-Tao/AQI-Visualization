@@ -1,4 +1,196 @@
 @import './variables.scss';
 
-// $--font-path: '~element-ui/lib/theme-chalk/fonts';
-// $--color-primary: #409EFF;
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+$--color-primary: $primary-color;
+
+.el-switch {
+  height: 0;
+}
+.el-switch__core {
+  width: $switch-width !important;
+  height: $switch-height;
+  border-radius: 3px;
+  border: $switch-bar-height * 0.05 solid $primary-text-color-light;
+  &::after {
+    border-radius: 3px;
+    width: $switch-bar-width;
+    height: $switch-bar-height;
+    top: 0;
+    left: 0;
+  }
+}
+.el-switch.is-checked .el-switch__core::after {
+  left: 100%;
+  margin-left: -$switch-bar-width;
+}
+.el-switch__label * {
+  font-size: $btn-font-size !important;
+}
+.el-switch__label {
+  color: $primary-text-color;
+  &.is-active {
+    color: $primary-text-color-light;
+  }
+}
+.el-switch__label--right {
+  margin-left: $switch-bar-width / 2;
+}
+
+.el-loading-mask {
+  background: rgba(255, 255, 255, 0.1)
+}
+
+.el-select--small {
+  background: $panel-background-color;
+  border: 1px solid $panel-border-color;
+  color: $primary-text-color-light;
+  font-size: 14px;
+  box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset, 0px 0px 10px 2px rgba(#ffffff, 0.05);
+  transition: left 0.45s cubic-bezier(.55, 0, .1, 1);
+  cursor: default;
+}
+
+.el-input--small .el-input__inner {
+  background: rgba(0,0,0,0);
+  border-radius: 0;
+  border: 0;
+  color: $primary-text-color-middle;
+}
+
+.el-select-dropdown {
+  background: $panel-background-color;
+  border: 1px solid $panel-border-color;
+  font-size: 14px;
+  box-shadow: 0px 0px 10px 2px rgba(#ffffff, 0.1) inset, 0px 0px 10px 2px rgba(#ffffff, 0.05);
+  ::-webkit-scrollbar {
+    background-color: transparent;
+  }
+}
+
+.el-popper[x-placement^=bottom] .popper__arrow {
+  top: -8px;
+}
+
+.el-select-dropdown__item {
+  color: $primary-text-color-light;
+}
+
+.el-select-dropdown__item.selected {
+  color: $primary-text-color;
+}
+
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover {
+  background: mix($panel-background-color-hover, white, 80%);
+}
+
+.el-table {
+  color: $primary-text-color!important;
+  background-color: transparent!important;
+  font-size: 14px;
+  .el-table__body-wrapper {
+    .el-table__body {
+      tr.current-row>td {
+        background-color: $panel-background-color;
+      }
+    }
+  }
+  thead {
+    color: $primary-text-color-low!important;
+    font-family: 'Times New Roman'!important;
+    font-size: $text-size-large - 2;
+  }
+  tr {
+    background-color: transparent!important;
+    cursor: pointer;
+  }
+  tr:hover>td {
+    background: mix($panel-background-color-hover,white,80%)!important;
+    color: $primary-text-color-light;
+  }
+  th.is-leaf {
+    border-bottom: 1px solid $primary-text-color;
+  }
+}
+.el-table td, .el-table th.is-leaf {
+  border-bottom: 1px solid $primary-text-color;
+}
+.el-table th, .el-table tr {
+  background-color: $primary-text-color-light;
+}
+.el-table__body tr.el-table__row.hover-row > td{
+  background-color: inherit;
+}
+.el-table--border, .el-table--group {
+  border: 1px solid $primary-text-color!important;
+  td {
+    border-bottom: 1px solid $primary-text-color!important;
+    border-right: 1px solid $primary-text-color!important;
+  }
+  th {
+    border-bottom: 1px solid $primary-text-color!important;
+    border-right:  1px solid $primary-text-color!important;
+  }
+}
+.el-table--border::after, .el-table--group::after, .el-table::before {
+  background-color: $panel-background-color;
+}
+.el-table_1_column_2, .el-table_1_column_1 {
+  padding-top: 10px!important;
+  div {
+    line-height: 30px!important;
+  }
+} 
+.el-table, .el-table__expanded-cell {
+  background-color: $panel-background-color;
+}
+.el-table--scrollable-x .el-table__body-wrapper {
+  overflow-x: hidden;
+}
+.el-table__header-wrapper {
+  background-color: $panel-background-color;
+}
+.el-table th, .el-table tr {
+  background-color: transparent !important;
+}
+.el-table th>.cell {
+  cursor: default;
+  color: $primary-text-color-light;
+}
+
+.el-slider__button {
+  border: 3px solid $panel-border-color;
+  background-color: $primary-text-color-light;
+  width: 0.8vw;
+  height: 0.8vw;
+}
+.el-slider__bar {
+  background-color: mix($primary-color-light, white, 90%);
+  height: 0.35vw;
+}
+.el-slider__runway {
+  height: 0.35vw;
+  margin: 0;
+}
+.el-slider__stop {
+  background-color: mix($primary-color-light, black, 80%);
+  height: 0.35vw;
+}
+.el-tree {
+  background: transparent;
+}
+.el-tree-node__content {
+  &:hover {
+    background-color: mix($panel-background-color-hover, white, 90%);
+  }
+}
+.el-tree-node {
+  &.is-current {
+    background-color: mix($panel-background-color-hover, white, 90%);
+  }
+  &:focus>.el-tree-node__content {
+    background-color: mix($panel-background-color-hover, white, 80%);
+  }
+}
+.el-tree-node__label {
+  color: $primary-text-color-middle;
+}

@@ -1,6 +1,6 @@
 {
-  "name": "webgis-practice",
-  "version": "0.0.0",
+  "name": "aqi-visualization",
+  "version": "1.0.0",
   "author": "CS-Tao <whucstao@qq.com>",
   "description": "地理信息系统综合实习",
   "license": "MIT",
@@ -22,8 +22,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "webgis-practice",
-    "appId": "cc.cs-tao.webgis-practice",
+    "productName": "AQI-Visualization",
+    "appId": "cc.cs-tao.aqi-visualization",
     "directories": {
       "output": "build"
     },
@@ -53,18 +53,14 @@
     },
     "linux": {
       "icon": "build/icons"
-    },
-    "publish": {
-      "provider": "github",
-      "owner": "CS-Tao <whucstao@qq.com>",
-      "repo": "CS-Tao/webgis-practice"
     }
   },
   "dependencies": {
+    "@esri/arcgis-to-geojson-utils": "^1.3.0",
     "axios": "^0.18.0",
     "echarts": "^4.1.0",
     "element-ui": "^2.4.4",
-    "esri-loader": "GIS-Hacker/esri-loader-2.2.0",
+    "esri-loader": "^2.4.0",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
