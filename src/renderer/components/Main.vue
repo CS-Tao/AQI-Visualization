@@ -39,6 +39,7 @@
         v-model="sliderValue"
         :max="365*4"
         class="slider"
+        :format-tooltip="sliderToolTip"
         @change="sliderValueChanged()">
       </el-slider>
       <span v-for="n in 5" :key="n" class="year-label" :class="'year-'+n">{{n + 2013}}</span>
@@ -138,6 +139,10 @@ export default {
       if (dayStr < 10) dateStr += '-0' + dayStr
       else dateStr += '-' + dayStr
       return dateStr
+    },
+    sliderToolTip (value) {
+      console.log(this.dateStrForShow)
+      return this.dateStrForShow
     }
   }
 }
